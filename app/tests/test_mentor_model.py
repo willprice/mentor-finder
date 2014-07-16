@@ -1,7 +1,9 @@
 import unittest
 from nose_parameterized import parameterized
+
+import utilities
+
 import datetime
-from utilities import create_example_mentor
 
 
 class TestMentorModel(unittest.TestCase):
@@ -11,7 +13,7 @@ class TestMentorModel(unittest.TestCase):
         ("John James", "John", "James")
     ])
     def test_stores_name(self, expected_name, first_name, last_name):
-        jason = create_example_mentor(
+        jason = utilities.create_example_mentor(
             first_name=first_name,
             last_name=last_name)
         self.assertEqual(expected_name, jason.name)
@@ -21,7 +23,7 @@ class TestMentorModel(unittest.TestCase):
         ("jason@jason.com",),
     ])
     def test_stores_email(self, email):
-        jason = create_example_mentor(email=email)
+        jason = utilities.create_example_mentor(email=email)
         self.assertEqual(email, jason.email)
 
     @parameterized.expand([
@@ -29,7 +31,7 @@ class TestMentorModel(unittest.TestCase):
         ("Birmingham"),
     ])
     def test_stores_county(self, county):
-        jason = create_example_mentor(county=county)
+        jason = utilities.create_example_mentor(county=county)
         self.assertEqual(county, jason.county)
 
     @parameterized.expand([
@@ -37,7 +39,7 @@ class TestMentorModel(unittest.TestCase):
         ("I have no experience!")
     ])
     def test_stores_description(self, description):
-        jason = create_example_mentor(description=description)
+        jason = utilities.create_example_mentor(description=description)
         self.assertEqual(description, jason.description)
 
     @parameterized.expand([
@@ -45,7 +47,7 @@ class TestMentorModel(unittest.TestCase):
         [datetime.date(1900, 12, 30)]
     ])
     def test_stores_date_of_birth(self, date):
-        jason = create_example_mentor(date_of_birth=date)
+        jason = utilities.create_example_mentor(date_of_birth=date)
         self.assertEqual(date, jason.date_of_birth)
 
 

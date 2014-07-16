@@ -1,12 +1,14 @@
-import lxml.html
-from .. import mentor_finder
-from flask import render_template
-from flask.ext.testing import TestCase
+import flask.ext.testing
 from nose_parameterized import parameterized
-from utilities import create_example_mentor
+
+from .. import mentor_finder
+import utilities
+
+import lxml.html
+import flask
 
 
-class TestMentorListings(TestCase):
+class TestMentorListings(flask.ext.testing.TestCase):
     mentor_divs_xpath = "/html/body/div[@id='content']/div[@class='mentor']"
 
     @parameterized.expand([
@@ -22,7 +24,7 @@ class TestMentorListings(TestCase):
         ("Billy",)
     ])
     def test_mentor_name_is_present_in_mentor_div(self, first_name):
-        example_mentor = create_example_mentor(first_name=first_name)
+        example_mentor = utilities.create_example_mentor(first_name=first_name)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
         self.assertIn(example_mentor.name, self.flatten_text(mentor_div))
 
@@ -31,7 +33,7 @@ class TestMentorListings(TestCase):
         ("Herefordshire")
     ])
     def test_mentor_county_is_present_in_mentor_div(self, county):
-        example_mentor = create_example_mentor(county=county)
+        example_mentor = utilities.create_example_mentor(county=county)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
         self.assertIn(example_mentor.county, self.flatten_text(mentor_div))
 
@@ -40,9 +42,18 @@ class TestMentorListings(TestCase):
         ("jason@jason.com",)
     ])
     def test_mentor_email_is_present_in_mentor_div(self, email):
-        example_mentor = create_example_mentor(email=email)
+        example_mentor = utilities.create_example_mentor(email=email)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
         self.assertIn(example_mentor.email, self.flatten_text(mentor_div))
+
+    @parameterized.expand([
+        ("I am a london based ..."),
+        ("I don't like to divulge professional information")
+    ])
+    def test_mentor_description_is_present_in_mentor_div(self, description):
+        example_mentor = utilities.create_example_mentor(description=description)
+        mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
+        self.assertIn(example_mentor.description, self.flatten_text(mentor_div))
 
     def create_app(self):
         app = mentor_finder.app
@@ -62,5 +73,5 @@ class TestMentorListings(TestCase):
         return mentor_divs
 
     def render_template_with_mentors(self, mentors):
-        return render_template('mentor_listings.html', mentors=mentors)
+        return flask.render_template('mentor_listings.html', mentors=mentors)
 
