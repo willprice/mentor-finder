@@ -1,10 +1,38 @@
 import datetime
 
 
+class Faculty(object):
+    def __init__(self):
+        self.mentors = []
+
+    def __iter__(self):
+        return self.mentors.__iter__()
+
+    def add(self, mentor):
+        self.mentors.append(mentor)
+
+    def get_mentor(self, email):
+        for mentor in self.mentors:
+            if mentor.email == email:
+                return mentor
+
+class Name(object):
+    def __init__(self, first_name, second_name):
+        self._first_name = first_name
+        self._second_name = second_name
+
+    def __eq__(self, other):
+        return self._first_name == other._first_name and \
+               self._second_name == other._second_name
+
+    def __str__(self):
+        return self._first_name + " " + self._second_name
+
+
+
 class Mentor(object):
-    def __init__(self, details):
-        self._first_name = details['first_name']
-        self._last_name = details['last_name']
+    def __init__(self, name, details):
+        self._name = name
         self._county = details['county']
         self._description = details['description']
         self._date_of_birth = details['date_of_birth']
@@ -20,7 +48,7 @@ class Mentor(object):
 
     @property
     def name(self):
-        return self._first_name + " " + self._last_name
+        return self._name
 
     @property
     def email(self):

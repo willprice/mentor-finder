@@ -26,7 +26,7 @@ class TestMentorListings(flask.ext.testing.TestCase):
     def test_mentor_name_is_present_in_mentor_div(self, first_name):
         example_mentor = utilities.create_example_mentor(first_name=first_name)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
-        self.assertIn(example_mentor.name, self.flatten_text(mentor_div))
+        self.assertIn(str(example_mentor.name), self.flatten_text(mentor_div))
 
     @parameterized.expand([
         ("Greater London"),

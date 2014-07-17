@@ -16,12 +16,12 @@ class AcceptanceTest(flask_testcase.FlaskTestCase):
             dob_day=u"1",
             description=u"I am a London based software developer with 22 years commercial experience")
         self.client.post('/addmentor', data=mentor_form_data)
-        expected_mentor = models.Mentor(dict(first_name=u"Jason",
-                                      last_name=u"Gorman",
-                                      email=u"jasongorman@codemanship.com",
-                                      county=u"Greater London",
-                                      date_of_birth=datetime.date(1900, 01, 01),
-                                      description=u"I am a London based software developer with 22 years commercial experience"))
+        expected_mentor = models.Mentor(models.Name(u"Jason", u"Gorman"), dict(
+            email=u"jasongorman@codemanship.com",
+            county=u"Greater London",
+            date_of_birth=datetime.date(1900, 01, 01),
+            description=u"I am a London based software developer with 22 years commercial experience"
+        ))
 
-        actual_mentor = mentor_finder.get_mentor("jasongorman@codemanship.com")
+        actual_mentor = mentor_finder.faculty.get_mentor("jasongorman@codemanship.com")
         self.assertEqual(expected_mentor, actual_mentor)

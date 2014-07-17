@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request
 from flask import url_for
-from models import Mentor
+from models import Mentor, Faculty, Name
 from datetime import date
 
-
 app = Flask("Mentor finder")
+faculty = Faculty()
 
 @app.route('/')
 def landing_page():
@@ -18,23 +18,17 @@ def mentor_signup():
 
 @app.route('/mentor_listings')
 def mentor_listings():
-    return render_template('mentor_listings.html', mentors=mentors)
+    return render_template('mentor_listings.html', mentors=faculty)
 
 
-
-mentors = []
 @app.route('/addmentor', methods=['POST'])
 def add_mentor():
-    global mentors
     mentor_dict = request.form.to_dict()
-    mentor_dict['date_of_birth'] = date(1900,1,1)
-    mentors.append(Mentor(mentor_dict))
+    mentor_dict['date_of_birth'] = date(1900, 1, 1)
+    name = Name(mentor_dict['first_name'], mentor_dict['last_name'])
+    faculty.add(Mentor(name, mentor_dict))
     return mentor_listings()
 
-def get_mentor(email):
-    for mentor in mentors:
-        if mentor.email == email:
-            return mentor
 
 def serve_static_files():
     url_for('static', filename='css/main.css')
