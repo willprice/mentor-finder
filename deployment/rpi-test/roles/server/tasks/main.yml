@@ -1,0 +1,58 @@
+---
+- name: Install server applications
+  apt: name={{ item }} state=present
+  with_items:
+    - apache2
+    - libapache2-mod-wsgi
+    - git
+    - python
+    - python-pip
+    - python-virtualenv
+
+- name: Install development applications
+  apt: name={{ item }} state=present
+  with_items:
+    - tmux
+    - vim
+
+- name: Install packages required for virtualenv packages
+  apt: name={{ item }} state=present
+  with_items:
+    - python-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - gcc
+
+- name: Copy mentor-finder site configuration
+  copy: src=mentor-finder dest=/etc/apache2/sites-available/
+
+- name: Copy mentor-finder-static site configuration
+  copy: src=mentor-finder dest=/etc/apache2/sites-available/
+
+- name: Enable mentor-finder site
+  command: a2ensite mentor-finder
+  args:
+    creates: /etc/apache2/sites-enabled/mentor-finder
+  notify: Restart apache
+
+- name: Enable mentor-finder-static site
+  command: a2ensite mentor-finder-static
+  args:
+    creates: /etc/apache2/sites-enabled/mentor-finder-static
+  notify: Restart apache
+
+- name: Enable mod_wsgi
+  command: a2enmod wsgi
+  args:
+    creates: /etc/apache2/mods-enabled/wsgi.conf
+    creates: /etc/apache2/mods-enabled/wsgi.load
+  notify: Restart apache
+
+- name: Enable webserver
+  service: name=apache2 state=started enabled=yes
+
+- name: Clone mentor-finder application
+  git: repo=https://github.com/willprice/apprentice-website.git dest=/var/www/mentor-finder
+
+- name: Install python dependencies in virtualenv
+  pip: requirements=/var/www/mentor-finder/requirements.txt virtualenv=/var/www/mentor-finder/.virtualenv
