@@ -14,16 +14,18 @@ class AcceptanceTest(flask_testcase.FlaskTestCase):
             dob_year=u"1900",
             dob_month=u"1",
             dob_day=u"1",
-            description=u"I am a London based software developer with 22 years commercial experience")
+            description=u"I am a London based software developer with 22 years commercial experience",
+            keywords=u"tdd,xp",
+            personal_site="parlezuml.com/blog",
+            twitter_id="jasongorman"
+        )
         self.client.post('/addmentor', data=mentor_form_data)
-        expected_mentor = mentor_finder.models.Mentor.create(dict(
-            first_name=u"Jason",
-            last_name=u"Gorman",
-            email=u"jasongorman@codemanship.com",
-            county=u"Greater London",
-            date_of_birth=datetime.date(1900, 01, 01),
-            description=u"I am a London based software developer with 22 years commercial experience"
-        ))
-
         actual_mentor = mentor_finder.controller.faculty.get_mentor("jasongorman@codemanship.com")
-        self.assertEqual(expected_mentor, actual_mentor)
+
+        self.assertEqual(u"jasongorman@codemanship.com", actual_mentor.email)
+        self.assertEqual(mentor_finder.models.Name(u"Jason", u"Gorman"), actual_mentor.name)
+        self.assertEqual(u"Greater London", actual_mentor.county)
+        self.assertEqual(datetime.date(1900, 01, 01), actual_mentor.date_of_birth)
+        self.assertEqual(["tdd", "xp"], actual_mentor.keywords)
+        self.assertEqual("parlezuml.com/blog", actual_mentor.personal_site)
+        self.assertEqual("jasongorman", actual_mentor.twitter_id)

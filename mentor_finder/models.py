@@ -44,22 +44,49 @@ class Mentor(object):
                                           int(fields['dob_day']))
         description = fields['description']
         email = fields['email']
-        return cls(name, county, description, date_of_birth, email)
+        optional = dict()
+        try:
+            optional['keywords'] = fields['keywords'].split(",")
+        except KeyError:
+            pass
+        try:
+            optional['personal_site'] = fields['personal_site']
+        except KeyError:
+            pass
+        try:
+            optional['twitter_id'] = fields['twitter_id']
+        except KeyError:
+            pass
 
-    def __init__(self, name, county, description, date_of_birth, email):
+        return cls(name, county, description, date_of_birth,
+                   email, **optional)
+
+    def add_optional_field(self, optional, field_name):
+        try:
+            self.__dict__['_' + field_name] = optional[field_name]
+        except KeyError:
+            pass
+
+    def add_optional_fields(self, optional):
+        self.add_optional_field(optional, 'personal_site')
+        self.add_optional_field(optional, 'twitter_id')
+        self.add_optional_field(optional, 'keywords')
+
+    def __init__(self, name, county, description, date_of_birth,
+                 email, **optional):
         self._name = name
         self._county = county
         self._description = description
         self._date_of_birth = date_of_birth
         self._email = email
 
-    def __eq__(self, other):
-        fields = ['_name', '_county', '_description', '_date_of_birth', '_email']
-        equal = True
-        for field in fields:
-            equal = equal and (self.__dict__[field] == other.__dict__[field])
+        self.add_optional_fields(optional)
 
-        return equal
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __eq__(self, other):
+        return self.email == other.email
 
     @property
     def name(self):
@@ -81,3 +108,18 @@ class Mentor(object):
     def date_of_birth(self):
         return self._date_of_birth
 
+    @property
+    def keywords(self):
+        return self._keywords
+
+    @property
+    def personal_site(self):
+        return self._personal_site
+
+    @property
+    def twitter_id(self):
+        return  self._twitter_id
+
+    @property
+    def linkedin_id(self):
+        return "jasongorman"

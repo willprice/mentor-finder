@@ -48,4 +48,50 @@ class TestMentorModel(unittest.TestCase):
         jason = utilities.create_example_mentor(date_of_birth=date)
         self.assertEqual(date, jason.date_of_birth)
 
+    @parameterized.expand([
+        (["tdd"], "tdd"),
+        (["tdd", "xp"], "tdd,xp"),
+    ])
+    def test_stores_keywords(self, expected, keywords):
+        jason = utilities.create_example_mentor(keywords=keywords)
+        self.assertEqual(expected, jason.keywords)
 
+
+    @parameterized.expand([
+        ["parlezuml.com/blog"],
+        ["willprice.org"]
+    ])
+    def test_stores_personal_site(self, site):
+        jason = utilities.create_example_mentor(personal_site=site)
+        self.assertEqual(site, jason.personal_site)
+
+
+    @parameterized.expand([
+        ["jasongorman"],
+        ["will_price_94"]
+    ])
+    def test_stores_twitter_id(self, twitter_id):
+        jason = utilities.create_example_mentor(twitter_id=twitter_id)
+        self.assertEqual(twitter_id, jason.twitter_id)
+
+
+    @parameterized.expand([
+        ["jasongorman"],
+#        ["will-price"]
+    ])
+    def test_stores_linkedin_id(self, id):
+        jason = utilities.create_example_mentor(linkedin_id=id)
+        self.assertEqual(id, jason.linkedin_id)
+
+    def test_twitter_id_is_optional(self):
+        utilities.create_minimal_example_mentor(personal_site="parlezuml.com/blog",
+                                                keywords="tdd")
+        self.assertTrue("twitter_id is not optional")
+
+    def test_personal_site_is_optional(self):
+        utilities.create_minimal_example_mentor(keywords="tdd")
+        self.assertTrue("personal_site is not optional")
+
+    def test_keywords_are_optional(self):
+        utilities.create_minimal_example_mentor()
+        self.assertTrue("keywords aren't optional")
