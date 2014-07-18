@@ -1,0 +1,24 @@
+ErrorLog "/var/log/apache2/error.log"
+CustomLog "/var/log/apache2/access.log" combined
+
+<VirtualHost *:80>
+    ServerName rocker9455.mooo.com
+    ServerAlias www.rocker9455.mooo.com
+    ServerAdmin willprice94+mentor_finder_admin@gmail.com
+
+    <Directory /var/www/mentor-finder>
+        <Files mentor_finder.wsgi>
+            Order allow,deny
+            Allow from all
+        </Files>
+    </Directory>
+
+    
+    WSGIProcessGroup  mentor-finder
+    WSGIScriptAlias   / /var/www/mentor-finder/mentor_finder.wsgi
+    WSGIDaemonProcess mentor-finder \
+                      threads=1 \
+                      home=/var/www/mentor-finder \
+                      python-path=/var/www/mentor-finder:/var/www/mentor-finder/.virtualenv/lib/python2.7/site-packages
+
+</VirtualHost>

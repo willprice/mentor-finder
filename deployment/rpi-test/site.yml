@@ -1,0 +1,7 @@
+---
+- name: Set up servers to host mentor_finder
+  hosts: test-servers
+  user: root
+
+  roles:
+  - server
