@@ -1,15 +1,23 @@
-import flask.ext.testing
+import unittest
 from nose_parameterized import parameterized
+from jinja2 import Environment, FileSystemLoader
 
-from .. import mentor_finder
+import mentor_finder
 import utilities
 
 import lxml.html
-import flask
 
 
-class TestMentorListings(flask.ext.testing.TestCase):
-    mentor_divs_xpath = "/html/body/div[@id='content']/div[@class='mentor']"
+class TestMentorListings(unittest.TestCase):
+    mentor_divs_xpath = "//div[@id='content']/div[@class='mentor']"
+
+    def setUp(self):
+        self.hi = "hi"
+        # app is the name of the package that is imported since the templates
+        # are in the top level directory we don't care, so can import anything
+        # here
+        self.env = Environment(loader=FileSystemLoader('mentor_finder/templates'))
+        self.template = self.env.get_template('mentor_listings.html')
 
     @parameterized.expand([
         (1, [None]),
@@ -73,5 +81,5 @@ class TestMentorListings(flask.ext.testing.TestCase):
         return mentor_divs
 
     def render_template_with_mentors(self, mentors):
-        return flask.render_template('mentor_listings.html', mentors=mentors)
+        return self.template.render(mentors=mentors)
 

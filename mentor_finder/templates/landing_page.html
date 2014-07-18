@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Landing page{% endblock %}
+{% block content %}
+    <div class="grid grid-pad">
+        <div class="col-1-2 choice">
+            <p>Want to learn from experienced professionals? Have a strong desire to
+                learn and be the best you can be? Sign up to find a mentor in an area that
+                interests you.</p>
+        </div>
+        <div class="col-1-2 choice">
+            <p>Interested in sharing your knowledge? Are you a good teacher? Come and be a
+                mentor for enthusiastic students</p>
+        </div>
+    </div>
+    <div class="grid grid-pad">
+        <div class="col-1-2 choice">
+            <div class="enter_button">STUDENT</div>
+        </div>
+        <div class="col-1-2 choice">
+            <a href="mentor_signup">
+                <div class="enter_button">MENTOR</div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,9 +1,7 @@
 import unittest
 from nose_parameterized import parameterized
-
-import utilities
-
 import datetime
+import utilities
 
 
 class TestMentorModel(unittest.TestCase):
