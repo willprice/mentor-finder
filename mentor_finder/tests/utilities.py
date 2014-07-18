@@ -1,5 +1,6 @@
 import mentor_finder.models
 import datetime
+from mentor_finder.models.mentor import MentorFieldParser
 
 _basic_mentor_details = dict(
     first_name="Jason",
@@ -24,7 +25,7 @@ _jasons_details = dict(
 
 
 def create_minimal_example_mentor(**kwargs):
-    return mentor_finder.models.Mentor.create(dict(_basic_mentor_details, **kwargs))
+    return MentorFieldParser(dict(_basic_mentor_details, **kwargs)).create_mentor()
 
 def create_example_mentor(**kwargs):
-    return mentor_finder.models.Mentor.create(dict(_jasons_details, **kwargs))
+    return MentorFieldParser(dict(_jasons_details, **kwargs)).create_mentor()

@@ -1,6 +1,7 @@
 import flask_testcase
 import mentor_finder
-import mentor_finder.models
+from mentor_finder.models.name import Name
+from mentor_finder.models.mentor import MentorFieldParser
 import datetime
 
 class AcceptanceTest(flask_testcase.FlaskTestCase):
@@ -23,7 +24,7 @@ class AcceptanceTest(flask_testcase.FlaskTestCase):
         actual_mentor = mentor_finder.controller.faculty.get_mentor("jasongorman@codemanship.com")
 
         self.assertEqual(u"jasongorman@codemanship.com", actual_mentor.email)
-        self.assertEqual(mentor_finder.models.Name(u"Jason", u"Gorman"), actual_mentor.name)
+        self.assertEqual(Name(u"Jason", u"Gorman"), actual_mentor.name)
         self.assertEqual(u"Greater London", actual_mentor.county)
         self.assertEqual(datetime.date(1900, 01, 01), actual_mentor.date_of_birth)
         self.assertEqual(["tdd", "xp"], actual_mentor.keywords)

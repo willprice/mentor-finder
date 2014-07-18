@@ -1,4 +1,5 @@
-from mentor_finder.models import Faculty, Mentor
+from mentor_finder.models.faculty import Faculty
+from mentor_finder.models.mentor import MentorFieldParser
 
 
 class Controller(object):
@@ -7,4 +8,4 @@ class Controller(object):
 
     def add_mentor(self, mentor_dict):
         mentor_dict = mentor_dict.to_dict()
-        self.faculty.add(Mentor.create(mentor_dict))
+        self.faculty.add(MentorFieldParser(mentor_dict).create_mentor())

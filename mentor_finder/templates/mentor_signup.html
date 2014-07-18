@@ -1,15 +1,4 @@
 {% extends "base.html" %}
-{% block head %}
-    <script src="/static/js/parsley.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.get('/static/uk-counties.csv', function(data) {
-
-            })
-        })
-    </script>
-{% endblock %}
 {% block title %}Mentor Signup{% endblock %}
 {% block content %}
     <div id="register-mentor">
@@ -26,7 +15,97 @@
                 <label for="last_name">Last name(*):</label>
                 <input name="last_name" type="text" required>
                 <label for="county">County(*):</label>
-                <input name="county" type="text" required>
+                <select name="county">
+                    <option value="Aberdeenshire">Aberdeenshire</option>
+                    <option value="Anglesey">Anglesey</option>
+                    <option value="Angus">Angus</option>
+                    <option value="Argyll">Argyll</option>
+                    <option value="Ayrshire">Ayrshire</option>
+                    <option value="Banffshire">Banffshire</option>
+                    <option value="Bedfordshire">Bedfordshire</option>
+                    <option value="Berwickshire">Berwickshire</option>
+                    <option value="Breconshire">Breconshire</option>
+                    <option value="Buckinghamshire">Buckinghamshire</option>
+                    <option value="Bute">Bute</option>
+                    <option value="Caernarvonshire">Caernarvonshire</option>
+                    <option value="Caithness">Caithness</option>
+                    <option value="Cambridgeshire">Cambridgeshire</option>
+                    <option value="Cardiganshire">Cardiganshire</option>
+                    <option value="Carmarthenshire">Carmarthenshire</option>
+                    <option value="Cheshire">Cheshire</option>
+                    <option value="Clackmannanshire">Clackmannanshire</option>
+                    <option value="Cornwall and Isles of Scilly">Cornwall and Isles of Scilly</option>
+                    <option value="Cumbria">Cumbria</option>
+                    <option value="Denbighshire">Denbighshire</option>
+                    <option value="Derbyshire">Derbyshire</option>
+                    <option value="Devon">Devon</option>
+                    <option value="Dorset">Dorset</option>
+                    <option value="Dumbartonshire">Dumbartonshire</option>
+                    <option value="Dumfriesshire">Dumfriesshire</option>
+                    <option value="Durham">Durham</option>
+                    <option value="East Lothian">East Lothian</option>
+                    <option value="East Sussex">East Sussex</option>
+                    <option value="Essex">Essex</option>
+                    <option value="Fife">Fife</option>
+                    <option value="Flintshire">Flintshire</option>
+                    <option value="Glamorgan">Glamorgan</option>
+                    <option value="Gloucestershire">Gloucestershire</option>
+                    <option value="Greater London">Greater London</option>
+                    <option value="Greater Manchester">Greater Manchester</option>
+                    <option value="Hampshire">Hampshire</option>
+                    <option value="Herefordshire">Herefordshire</option>
+                    <option value="Hertfordshire">Hertfordshire</option>
+                    <option value="Inverness">Inverness</option>
+                    <option value="Kent">Kent</option>
+                    <option value="Kincardineshire">Kincardineshire</option>
+                    <option value="Kinross-shire">Kinross-shire</option>
+                    <option value="Kirkcudbrightshire">Kirkcudbrightshire</option>
+                    <option value="Lanarkshire">Lanarkshire</option>
+                    <option value="Lancashire">Lancashire</option>
+                    <option value="Leicestershire">Leicestershire</option>
+                    <option value="Lincolnshire">Lincolnshire</option>
+                    <option value="London">London</option>
+                    <option value="Merionethshire">Merionethshire</option>
+                    <option value="Merseyside">Merseyside</option>
+                    <option value="Midlothian">Midlothian</option>
+                    <option value="Monmouthshire">Monmouthshire</option>
+                    <option value="Montgomeryshire">Montgomeryshire</option>
+                    <option value="Moray">Moray</option>
+                    <option value="Nairnshire">Nairnshire</option>
+                    <option value="Norfolk">Norfolk</option>
+                    <option value="North Yorkshire">North Yorkshire</option>
+                    <option value="Northamptonshire">Northamptonshire</option>
+                    <option value="Northumberland">Northumberland</option>
+                    <option value="Nottinghamshire">Nottinghamshire</option>
+                    <option value="Orkney">Orkney</option>
+                    <option value="Oxfordshire">Oxfordshire</option>
+                    <option value="Peebleshire">Peebleshire</option>
+                    <option value="Pembrokeshire">Pembrokeshire</option>
+                    <option value="Perthshire">Perthshire</option>
+                    <option value="Radnorshire">Radnorshire</option>
+                    <option value="Renfrewshire">Renfrewshire</option>
+                    <option value="Ross & Cromarty">Ross & Cromarty</option>
+                    <option value="Roxburghshire">Roxburghshire</option>
+                    <option value="Selkirkshire">Selkirkshire</option>
+                    <option value="Shetland">Shetland</option>
+                    <option value="Shropshire">Shropshire</option>
+                    <option value="Somerset">Somerset</option>
+                    <option value="South Yorkshire">South Yorkshire</option>
+                    <option value="Staffordshire">Staffordshire</option>
+                    <option value="Stirlingshire">Stirlingshire</option>
+                    <option value="Suffolk">Suffolk</option>
+                    <option value="Surrey">Surrey</option>
+                    <option value="Sutherland">Sutherland</option>
+                    <option value="Tyne and Wear">Tyne and Wear</option>
+                    <option value="Warwickshire">Warwickshire</option>
+                    <option value="West Lothian">West Lothian</option>
+                    <option value="West Midlands">West Midlands</option>
+                    <option value="West Sussex">West Sussex</option>
+                    <option value="West Yorkshire">West Yorkshire</option>
+                    <option value="Wigtownshire">Wigtownshire</option>
+                    <option value="Wiltshire">Wiltshire</option>
+                    <option value="Worcestershire">Worcestershire</option>
+                </select>
                 <fieldset class="date_of_birth">
                     <legend>Date of birth:</legend>
                     <input name="dob_day" type="text" placeholder="DD" required>
