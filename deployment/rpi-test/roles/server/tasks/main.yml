@@ -52,7 +52,12 @@
   service: name=apache2 state=started enabled=yes
 
 - name: Clone mentor-finder application
-  git: repo=https://github.com/willprice/apprentice-website.git dest=/var/www/mentor-finder
+  git: repo=https://github.com/willprice/apprentice-website.git 
+       dest=/var/www/mentor-finder 
+       depth=1
+       version=develop
+  notify: Restart apache
 
 - name: Install python dependencies in virtualenv
-  pip: requirements=/var/www/mentor-finder/requirements.txt virtualenv=/var/www/mentor-finder/.virtualenv
+  pip: requirements=/var/www/mentor-finder/requirements.txt 
+       virtualenv=/var/www/mentor-finder/.virtualenv
