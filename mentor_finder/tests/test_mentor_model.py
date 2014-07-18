@@ -1,9 +1,7 @@
 import unittest
 from nose_parameterized import parameterized
-
-import utilities
-
 import datetime
+import utilities
 
 
 class TestMentorModel(unittest.TestCase):
@@ -16,7 +14,7 @@ class TestMentorModel(unittest.TestCase):
         jason = utilities.create_example_mentor(
             first_name=first_name,
             last_name=last_name)
-        self.assertEqual(expected_name, jason.name)
+        self.assertEqual(expected_name, str(jason.name))
 
     @parameterized.expand([
         ("jasongorman@codemanship.com",),

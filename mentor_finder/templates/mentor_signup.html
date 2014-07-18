@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block head %}
+    <script src="/static/js/parsley.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.get('/static/uk-counties.csv', function(data) {
+
+            })
+        })
+    </script>
+{% endblock %}
+{% block title %}Mentor Signup{% endblock %}
+{% block content %}
+    <div id="register-mentor">
+        <form action="addmentor" method="post" data-validate="parsley">
+            <fieldset>
+                <label for="email">Email(*):</label>
+                <input name="email" type="text" data-type="email" required>
+                <label for="password">Password(*):</label>
+                <input name="password" type="password" required>
+                <label for="password_conf">Password confirmation(*):</label>
+                <input name="password_conf" type="password" required="true">
+                <label for="first_name">First name(*):</label>
+                <input name="first_name" type="text" required>
+                <label for="last_name">Last name(*):</label>
+                <input name="last_name" type="text" required>
+                <label for="county">County(*):</label>
+                <input name="county" type="text" required>
+                <fieldset class="date_of_birth">
+                    <legend>Date of birth:</legend>
+                    <input name="dob_day" type="text" placeholder="DD" required>
+                    <select name="dob_month">
+                        <option value=1>January</option>
+                        <option value=2>February</option>
+                        <option value=3>March</option>
+                        <option value=4>April</option>
+                        <option value=5>May</option>
+                        <option value=6>June</option>
+                        <option value=7>July</option>
+                        <option value=8>Auguest</option>
+                        <option value=9>September</option>
+                        <option value=10>October</option>
+                        <option value=11>November</option>
+                        <option value=12>December</option>
+                    </select>
+                    <input name="dob_year" type="text" placeholder="YYYY">
+                </fieldset>
+                <label for="description">Description(*):</label>
+                <textarea name="description" placeholder="Type a little bit about yourself and what you hope to get out of the mentoring process" required></textarea>
+            </fieldset>
+            <fieldset>
+                <label for="keywords">Keywords (comma separated):</label>
+                <input name="keywords" type="text">
+                <label for="personal_site">Personal site:</label>
+                <input name="personal_site"type="text">
+                <label for="twitter_id">Twitter ID:</label>
+                @<input name="twitter_id" type="text">
+                <label for="linkedin">LinkdenIn:</label>
+                <input name="linkedin" type="text">
+                <label for="github">Github:</label>
+                <input name="github" type="text">
+            </fieldset>
+            <input type="submit" value="Cancel">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}

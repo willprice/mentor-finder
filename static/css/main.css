@@ -73,15 +73,6 @@ fieldset {
     margin: 0;
     padding: 0;
 }
-
-/*
- * Allow only vertical resizing of textareas.
- */
-
-textarea {
-    resize: vertical;
-}
-
 /* ==========================================================================
    Browse Happy prompt
    ========================================================================== */
@@ -96,22 +87,54 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.content {
+    margin: 0px auto;
+}
 
+.enter_button {
+    width: 200px;
+    height: 450px;
+    margin: 0 auto;
+    vertical-align: middle;
+    text-align: center;
+    background: #eee;
+    box-shadow: 10px 10px 5px 0 #888;
+    border: 1px solid #998;
+}
 
+#register-mentor  label {
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+}
+input {
+    width: 100%;
+}
+#register-mentor fieldset {
+    margin-bottom: 30px;
+  }
 
+fieldset.date_of_birth {
+    width: auto;
+}
 
+#register-mentor textarea {
+    width:100%;
+    height: 100px;
+}
+#register-mentor {
+    margin: 50px auto;
+    width: 30%
+}
 
-
-
-
-
-
-
-
-
-
-
-
+#register-mentor input[type="submit"] {
+    width: 40%;
+    margin: 0 auto;
+}
+#register-mentor input[type="text"],
+#register-mentor input[type="textarea"] {
+    border-radius: 5px;
+}
 
 /* ==========================================================================
    Helper classes

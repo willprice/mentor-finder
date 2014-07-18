@@ -1,5 +1,5 @@
 import flask.ext.testing
-from .. import mentor_finder
+import mentor_finder
 
 
 class FlaskTestCase(flask.ext.testing.TestCase):
