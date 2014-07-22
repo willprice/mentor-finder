@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Mentor Signup{% endblock %}
 {% block content %}
+    <h1>Mentor signup</h1>
+    {% if error %}
+    <div class="error"> {{ error }} </div>
+    {% endif %}
     <div id="register-mentor">
         <form action="addmentor" method="post" data-validate="parsley">
-            <fieldset>
+            <fieldset class="mandatory">
                 <label for="email">Email(*):</label>
                 <input name="email" type="text" data-type="email" required>
                 <label for="password">Password(*):</label>
@@ -123,12 +127,12 @@
                         <option value=11>November</option>
                         <option value=12>December</option>
                     </select>
-                    <input name="dob_year" type="text" placeholder="YYYY">
+                    <input name="dob_year" type="text" placeholder="YYYY" required>
                 </fieldset>
                 <label for="description">Description(*):</label>
                 <textarea name="description" placeholder="Type a little bit about yourself and what you hope to get out of the mentoring process" required></textarea>
             </fieldset>
-            <fieldset>
+            <fieldset class="optional">
                 <label for="keywords">Keywords (comma separated):</label>
                 <input name="keywords" type="text">
                 <label for="personal_site">Personal site:</label>

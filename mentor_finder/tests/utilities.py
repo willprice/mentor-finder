@@ -18,14 +18,14 @@ _jasons_details = dict(
     county="Greater London",
     description="I am a London based software developer and trainer with 22 years of commercial experience",
     date_of_birth=datetime.date(1800,01,01),
-    keywords="programming,tdd",
+    keywords="Programming,TDD,Refactoring",
     personal_site="parlezuml.com/blog",
     twitter_id="jasongorman"
 )
 
 
 def create_minimal_example_mentor(**kwargs):
-    return MentorFieldParser(dict(_basic_mentor_details, **kwargs)).create_mentor()
+    return MentorFieldParser(dict(_basic_mentor_details, **kwargs)).get_mentor()
 
 def create_example_mentor(**kwargs):
-    return MentorFieldParser(dict(_jasons_details, **kwargs)).create_mentor()
+    return MentorFieldParser(dict(_jasons_details, **kwargs)).get_mentor()

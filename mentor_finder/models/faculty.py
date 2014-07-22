@@ -1,3 +1,6 @@
+from mentor_finder.models.errors import MentorAlreadyExistsError
+
+
 class Faculty(object):
     def __init__(self):
         self.mentors = []
@@ -6,6 +9,8 @@ class Faculty(object):
         return self.mentors.__iter__()
 
     def add(self, mentor):
+        if mentor in self.mentors:
+            raise MentorAlreadyExistsError
         self.mentors.append(mentor)
 
     def get_mentor(self, email):

@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash
 from mentor_finder import controller
+from mentor_finder.models.errors import MentorAlreadyExistsError
 
 mod = Blueprint('general', __name__)
 
@@ -10,8 +11,8 @@ def landing_page():
 
 
 @mod.route('/mentor_signup')
-def mentor_signup():
-    return render_template('mentor_signup.html')
+def mentor_signup(**kwargs):
+    return render_template('mentor_signup.html', **kwargs)
 
 
 @mod.route('/mentor_listings')
@@ -21,5 +22,9 @@ def mentor_listings():
 
 @mod.route('/addmentor', methods=['POST'])
 def add_mentor():
-    controller.add_mentor(request.form)
-    return mentor_listings()
+    try:
+        controller.add_mentor(request.form)
+    except MentorAlreadyExistsError:
+        return mentor_signup(error=u'Email address already in use')
+    else:
+        return mentor_listings()

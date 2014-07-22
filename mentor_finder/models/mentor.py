@@ -6,12 +6,12 @@ class MentorFieldParser(object):
     def __init__(self, fields):
         self.fields = fields
         self.optional_fields = dict()
-
-    def create_mentor(self):
         county, date_of_birth, description, email, name = self.parse_mandatory_fields()
         self.parse_optional_fields()
-        return Mentor(name, county, description, date_of_birth,
-                      email, **self.optional_fields)
+        self.mentor = Mentor(name, county, description, date_of_birth, email, **self.optional_fields)
+
+    def get_mentor(self):
+        return self.mentor
 
     def parse_mandatory_fields(self):
         name = Name(self.fields['first_name'],

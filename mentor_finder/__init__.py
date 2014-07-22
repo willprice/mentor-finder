@@ -16,8 +16,7 @@ def serve_static_files():
 
 if __name__ == '__main__':
     app.debug = True
+    app.secret_key = "A0Zr98j/3yX R~XHH!jmN]LWX/,?RT"
     app.run()
-
     if app.debug:
         serve_static_files()
-

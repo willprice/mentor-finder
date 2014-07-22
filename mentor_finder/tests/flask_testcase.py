@@ -6,4 +6,5 @@ class FlaskTestCase(flask.ext.testing.TestCase):
     def create_app(self):
         app = mentor_finder.app
         app.config['TESTING'] = True
+        app.secret_key = 'my_secret_key'
         return app

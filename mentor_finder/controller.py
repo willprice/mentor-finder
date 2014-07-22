@@ -1,3 +1,4 @@
+from mentor_finder.models.errors import MentorAlreadyExistsError
 from mentor_finder.models.faculty import Faculty
 from mentor_finder.models.mentor import MentorFieldParser
 
@@ -7,5 +8,5 @@ class Controller(object):
         self.faculty = Faculty()
 
     def add_mentor(self, mentor_dict):
-        mentor_dict = mentor_dict.to_dict()
-        self.faculty.add(MentorFieldParser(mentor_dict).create_mentor())
+        mentor = MentorFieldParser(mentor_dict).get_mentor()
+        self.faculty.add(mentor)
