@@ -57,6 +57,7 @@ class Mentor(object):
     def __init__(self, name, county, description, date_of_birth, email,
                  personal_site=None, twitter_id=None, keywords=None,
                  linkedin=None, github_id=None):
+        self.activated = False
         self._name = name
         self._county = county
         self._description = description
@@ -73,7 +74,9 @@ class Mentor(object):
         return not self.__eq__(other)
 
     def __eq__(self, other):
-        return self.email == other.email
+        if type(other) == Mentor:
+            return self.email == other.email
+        return False
 
     @property
     def name(self):

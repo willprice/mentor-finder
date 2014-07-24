@@ -10,3 +10,4 @@ class Controller(object):
     def add_mentor(self, mentor_dict):
         mentor = MentorFieldParser(mentor_dict).get_mentor()
         self.faculty.add(mentor)
+        return mentor

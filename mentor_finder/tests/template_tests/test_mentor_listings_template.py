@@ -10,7 +10,7 @@ import lxml.html
 
 
 class TestMentorListings(TemplateTestCase):
-    mentor_divs_xpath = "//div[@id='content']/div[@class='mentor']"
+    mentor_divs_xpath = "//div[@id='content']/div[contains(@class, 'mentor')]"
     env = Environment(loader=FileSystemLoader('mentor_finder/templates'))
     template = env.get_template('mentor_listings.html')
 
@@ -104,19 +104,28 @@ class TestMentorListings(TemplateTestCase):
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
         self.assertIn("http://github.com/{}".format(github_id), self.flatten_text(mentor_div))
 
+    def test_current_mentor_is_highlighted(self):
+        example_mentor = utilities.create_example_mentor()
+        mentor_div = self.render_template_and_return_mentor_divs([example_mentor], current=example_mentor)[0]
+        self.assertIn("highlight", mentor_div.attrib['class'])
+
+    def test_only_the_current_mentor_is_highlighted(self):
+        example_mentor = utilities.create_example_mentor()
+        another_mentor = utilities.create_example_mentor(email="jo@jo.com")
+        another_mentor_div = self.render_template_and_return_mentor_divs([example_mentor, another_mentor], current=example_mentor)[1]
+        self.assertNotIn("highlight", another_mentor_div.attrib['class'])
 
 
-
-    def render_template_and_return_mentor_divs(self, mentors):
-        tree = self.render_html_to_tree(mentors)
+    def render_template_and_return_mentor_divs(self, mentors, **kwargs):
+        tree = self.render_html_to_tree(mentors, **kwargs)
         mentor_divs = tree.xpath(self.mentor_divs_xpath)
         return mentor_divs
 
-    def render_html_to_tree(self, mentors):
-        html = self.render_template_with_mentors(mentors)
+    def render_html_to_tree(self, mentors, **kwargs):
+        html = self.render_template_with_mentors(mentors, **kwargs)
         tree = lxml.html.fromstring(html)
         return tree
 
-    def render_template_with_mentors(self, mentors):
-        return self.template.render(mentors=mentors)
+    def render_template_with_mentors(self, mentors, **kwargs):
+        return self.template.render(mentors=mentors, **kwargs)
 

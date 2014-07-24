@@ -2,30 +2,34 @@
 {% block title %}Mentor Listings{% endblock %}
 {% block content %}
     <h1>Mentor listings</h1>
-        {% for mentor in mentors %}
-        <div class="mentor">
+    {% for mentor in mentors %}
+        {% set classes = "mentor" %}
+        {% if current == mentor %}
+            {% set classes = classes + " highlight" %}
+        {% endif %}
+        <div class="{{ classes }}">
             <p><span class="name">{{ mentor.name }}</span>, <span class="county">{{ mentor.county }}</span></p>
             <p class="email"><a href="mailto:{{ mentor.email }}">{{ mentor.email }}</a></p>
             <p class="description">{{ mentor.description }}</p>
-        {% if mentor.twitter_id %}
-            <p class="twitter"><a href="http://twitter.com/{{ mentor.twitter_id }}">@{{ mentor.twitter_id }}</a></p>
-        {% endif %}
-        {% if mentor.personal_site %}
-            <p class="personal_site"><a href="{{ mentor.personal_site }}">{{ mentor.personal_site }}</a></p>
-        {% endif %}
-        {% if mentor.keywords %}
-            <p class="keywords">Keywords:
-            {% for keyword in mentor.keywords %}
-                <span class="keyword">{{ keyword }}</span>
-            {% endfor %}
-            </p>
-        {% endif %}
-        {% if mentor.linkedin %}
-            <p class="linkedin"><a href="{{ mentor.linkedin }}">{{ mentor.linkedin }}</a></p>
-        {% endif %}
-        {% if mentor.github_id %}
-            <p class="github"><a href="http://github.com/{{ mentor.github_id }}">http://github.com/{{ mentor.github_id }}</a></p>
-        {% endif %}
+            {% if mentor.twitter_id %}
+                <p class="twitter"><a href="http://twitter.com/{{ mentor.twitter_id }}">@{{ mentor.twitter_id }}</a></p>
+            {% endif %}
+            {% if mentor.personal_site %}
+                <p class="personal_site"><a href="{{ mentor.personal_site }}">{{ mentor.personal_site }}</a></p>
+            {% endif %}
+            {% if mentor.keywords %}
+                <p class="keywords">Keywords:
+                    {% for keyword in mentor.keywords %}
+                        <span class="keyword">{{ keyword }}</span>
+                    {% endfor %}
+                </p>
+            {% endif %}
+            {% if mentor.linkedin %}
+                <p class="linkedin"><a href="{{ mentor.linkedin }}">{{ mentor.linkedin }}</a></p>
+            {% endif %}
+            {% if mentor.github_id %}
+                <p class="github"><a href="http://github.com/{{ mentor.github_id }}">http://github.com/{{ mentor.github_id }}</a></p>
+            {% endif %}
         </div>
-        {% endfor %}
+    {% endfor %}
 {% endblock %}

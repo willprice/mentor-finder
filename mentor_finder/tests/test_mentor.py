@@ -104,3 +104,7 @@ class TestMentorModel(unittest.TestCase):
     def test_keywords_are_optional(self):
         utilities.create_minimal_example_mentor()
         self.assertTrue("keywords aren't optional")
+
+    def test_account_is_initially_deactivated(self):
+        mentor = utilities.create_example_mentor()
+        self.assertFalse(mentor.activated)
