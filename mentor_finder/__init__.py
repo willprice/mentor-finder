@@ -1,11 +1,11 @@
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from flask import Flask
 from flask import url_for
 from flask_wtf import CsrfProtect
 
-
 from mentor_finder.controller import Controller
-from mentor_finder.passes import add_sensitive_information_to_app
+from mentor_finder.sensitive.passes import add_sensitive_information_to_app
+
 
 app = Flask(__name__)
 app.secret_key = "A0Zr98j/3yX R~XHH!jmN]LWX/,?RT"
