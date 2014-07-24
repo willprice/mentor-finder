@@ -37,6 +37,7 @@ _counties = [
     ("Greater Manchester", "Greater Manchester"),
     ("Hampshire", "Hampshire"),
     ("Hertfordshire", "Hertfordshire"),
+    ("Herefordshire", "Herefordshire"),
     ("Inverness", "Inverness"),
     ("Kent", "Kent"),
     ("Kincardineshire", "Kincardineshire"),
