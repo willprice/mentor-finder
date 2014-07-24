@@ -6,6 +6,8 @@ from flask_wtf import CsrfProtect
 from mentor_finder.controller import Controller
 
 app = Flask(__name__)
+app.secret_key = "A0Zr98j/3yX R~XHH!jmN]LWX/,?RT"
+
 controller = Controller()
 
 import mentor_finder.views
@@ -21,7 +23,7 @@ if __name__ == '__main__':
 
     csrf = CsrfProtect()
     csrf.init_app(app)
-    
+
     app.run()
     if app.debug:
         serve_static_files()
