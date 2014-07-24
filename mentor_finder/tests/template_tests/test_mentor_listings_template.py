@@ -2,13 +2,14 @@ import unittest
 from nose_parameterized import parameterized
 from jinja2 import Environment, FileSystemLoader
 
-import mentor_finder
-import utilities
+import mentor_finder.tests.utilities as utilities
+from mentor_finder.tests.template_testcase import TemplateTestCase
 
 import lxml.html
 
 
-class TestMentorListings(unittest.TestCase):
+
+class TestMentorListings(TemplateTestCase):
     mentor_divs_xpath = "//div[@id='content']/div[@class='mentor']"
     env = Environment(loader=FileSystemLoader('mentor_finder/templates'))
     template = env.get_template('mentor_listings.html')
@@ -28,7 +29,7 @@ class TestMentorListings(unittest.TestCase):
     def test_mentor_name_is_present_in_mentor_div(self, first_name):
         example_mentor = utilities.create_example_mentor(first_name=first_name)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
-        self.assertIn(str(example_mentor.name), self.flatten_text(mentor_div))
+        self.assertIn(first_name, self.flatten_text(mentor_div))
 
     @parameterized.expand([
         ("Greater London",),
@@ -37,7 +38,7 @@ class TestMentorListings(unittest.TestCase):
     def test_mentor_county_is_present_in_mentor_div(self, county):
         example_mentor = utilities.create_example_mentor(county=county)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
-        self.assertIn(example_mentor.county, self.flatten_text(mentor_div))
+        self.assertIn(county, self.flatten_text(mentor_div))
 
     @parameterized.expand([
         ("jasongorman@codemanship.com",),
@@ -46,7 +47,7 @@ class TestMentorListings(unittest.TestCase):
     def test_mentor_email_is_present_in_mentor_div(self, email):
         example_mentor = utilities.create_example_mentor(email=email)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
-        self.assertIn(example_mentor.email, self.flatten_text(mentor_div))
+        self.assertIn(email, self.flatten_text(mentor_div))
 
     @parameterized.expand([
         ("I am a london based ...",),
@@ -55,7 +56,7 @@ class TestMentorListings(unittest.TestCase):
     def test_mentor_description_is_present_in_mentor_div(self, description):
         example_mentor = utilities.create_example_mentor(description=description)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
-        self.assertIn(example_mentor.description, self.flatten_text(mentor_div))
+        self.assertIn(description, self.flatten_text(mentor_div))
 
     @parameterized.expand([
         ("jasongorman",),
@@ -64,7 +65,7 @@ class TestMentorListings(unittest.TestCase):
     def test_twitter_id_populates_a_link(self, id):
         example_mentor = utilities.create_example_mentor(twitter_id=id)
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
-        self.assertIn(example_mentor.twitter_id, self.flatten_text(mentor_div))
+        self.assertIn(id, self.flatten_text(mentor_div))
 
     @parameterized.expand([
         ("parlezuml.com/blog",),
@@ -85,11 +86,26 @@ class TestMentorListings(unittest.TestCase):
         for keyword in keywords:
             self.assertIn(keyword, self.flatten_text(mentor_div))
 
-    def flatten_text(self, element):
-        text = element.text or ""
-        for child in element:
-            text += self.flatten_text(child)
-        return text
+    @parameterized.expand([
+        ["linkedin_url_1"],
+        ["linkedin_url_2"],
+    ])
+    def test_linkedin_url_is_present_in_listing(self, linkedin):
+        example_mentor = utilities.create_example_mentor(linkedin=linkedin)
+        mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
+        self.assertIn(linkedin, self.flatten_text(mentor_div))
+
+    @parameterized.expand([
+        ["jasongorman"],
+        ["willprice"]
+    ])
+    def test_github_url_is_present_in_listing(self, github_id):
+        example_mentor = utilities.create_example_mentor(github_id=github_id)
+        mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
+        self.assertIn("http://github.com/{}".format(github_id), self.flatten_text(mentor_div))
+
+
+
 
     def render_template_and_return_mentor_divs(self, mentors):
         tree = self.render_html_to_tree(mentors)

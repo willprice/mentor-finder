@@ -41,14 +41,15 @@ class TestMentorModel(unittest.TestCase):
         self.assertEqual(description, jason.description)
 
     @parameterized.expand([
-        [datetime.date(1900, 01, 01)],
-        [datetime.date(1900, 12, 30)]
+        [datetime.datetime(1900, 01, 01), u"1900-01-01"],
+        [datetime.datetime(1900, 12, 30), u"1900-12-30"]
     ])
-    def test_stores_date_of_birth(self, date):
-        jason = utilities.create_example_mentor(date_of_birth=date)
-        self.assertEqual(date, jason.date_of_birth)
+    def test_stores_date_of_birth(self, expected_date, date_string):
+        jason = utilities.create_example_mentor(date_of_birth=date_string)
+        self.assertEqual(expected_date, jason.date_of_birth)
 
     @parameterized.expand([
+        ([], ""),
         (["tdd"], "tdd"),
         (["tdd", "xp"], "tdd,xp"),
     ])
@@ -76,12 +77,20 @@ class TestMentorModel(unittest.TestCase):
 
 
     @parameterized.expand([
-        ["jasongorman"],
-#        ["will-price"]
+        ["uk.linkedin.com/in/jasongorman"],
+        ["uk.linkedin.com/pub/will-price/7b/579/aba"]
     ])
     def test_stores_linkedin_id(self, id):
-        jason = utilities.create_example_mentor(linkedin_id=id)
-        self.assertEqual(id, jason.linkedin_id)
+        jason = utilities.create_example_mentor(linkedin=id)
+        self.assertEqual(id, jason.linkedin)
+
+    @parameterized.expand([
+        ["jasongorman"],
+        ["willprice"]
+    ])
+    def test_stores_github_id(self, id):
+        jason = utilities.create_example_mentor(github_id=id)
+        self.assertEqual(id, jason.github_id)
 
     def test_twitter_id_is_optional(self):
         utilities.create_minimal_example_mentor(personal_site="parlezuml.com/blog",

@@ -8,7 +8,7 @@ _basic_mentor_details = dict(
     email="jasongorman@codemanship.com",
     county="Greater London",
     description="I am a London based software developer and trainer with 22 years of commercial experience",
-    date_of_birth=datetime.date(1800,01,01),
+    date_of_birth=u"1900-01-01"
 )
 
 _jasons_details = dict(
@@ -17,10 +17,11 @@ _jasons_details = dict(
     email="jasongorman@codemanship.com",
     county="Greater London",
     description="I am a London based software developer and trainer with 22 years of commercial experience",
-    date_of_birth=datetime.date(1800,01,01),
+    date_of_birth=u"1900-01-01",
     keywords="Programming,TDD,Refactoring",
     personal_site="parlezuml.com/blog",
-    twitter_id="jasongorman"
+    twitter_id="jasongorman",
+    linkedin="uk.linkedin.com/in/jasongorman"
 )
 
 

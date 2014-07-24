@@ -1,4 +1,5 @@
 import datetime
+import dateutil.parser
 from mentor_finder.models.name import Name
 
 
@@ -24,7 +25,7 @@ class MentorFieldParser(object):
 
     def parse_date_of_birth(self, fields):
         try:
-            date_of_birth = fields['date_of_birth']
+            date_of_birth = dateutil.parser.parse(fields['date_of_birth'])
         except KeyError:
             date_of_birth = datetime.date(int(fields['dob_year']),
                                           int(fields['dob_month']),
@@ -32,9 +33,11 @@ class MentorFieldParser(object):
         return date_of_birth
 
     def parse_optional_fields(self):
-        self.parse_optional_keywords()
+        self.parse_keywords()
         self.parse_optional_field('twitter_id')
         self.parse_optional_field('personal_site')
+        self.parse_optional_field('linkedin')
+        self.parse_optional_field('github_id')
 
     def parse_optional_field(self, field):
         try:
@@ -42,18 +45,18 @@ class MentorFieldParser(object):
         except KeyError:
             pass
 
-    def parse_optional_keywords(self):
+    def parse_keywords(self):
         try:
-            self.optional_fields['keywords'] = self.fields['keywords'].split(",")
+            split_keywords = self.fields['keywords'].split(",")
+            self.optional_fields['keywords'] = split_keywords if split_keywords != [''] else []
         except KeyError:
             pass
 
 
 class Mentor(object):
     def __init__(self, name, county, description, date_of_birth, email,
-                 personal_site=None,
-                 twitter_id=None,
-                 keywords=None):
+                 personal_site=None, twitter_id=None, keywords=None,
+                 linkedin=None, github_id=None):
         self._name = name
         self._county = county
         self._description = description
@@ -62,6 +65,8 @@ class Mentor(object):
         self._personal_site = personal_site
         self._twitter_id = twitter_id
         self._keywords = keywords
+        self._linkedin_id = linkedin
+        self._github_id = github_id
 
 
     def __ne__(self, other):
@@ -103,5 +108,9 @@ class Mentor(object):
         return  self._twitter_id
 
     @property
-    def linkedin_id(self):
-        return "jasongorman"
+    def linkedin(self):
+        return self._linkedin_id
+
+    @property
+    def github_id(self):
+        return self._github_id

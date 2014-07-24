@@ -1,151 +1,45 @@
 {% extends "base.html" %}
 {% block title %}Mentor Signup{% endblock %}
+{% block head %}
+    <script data-main="static/js/mentor_finder/index.js"
+            src="static/js/mentor_finder/bower_components/requirejs/require.js"></script>
+{% endblock %}
 {% block content %}
     <h1>Mentor signup</h1>
-    {% if error %}
-    <div class="error"> {{ error }} </div>
+    {% if form.errors %}
+        {% for field in form.errors.keys() %}
+            <div class="error">
+            <p>{{ field }}:</p>
+            {% for error in form.errors[field] %}
+                {{ error }}
+            {% endfor %}
+            </div>
+        {% endfor %}
     {% endif %}
-    <div id="register-mentor">
-        <form action="addmentor" method="post" data-validate="parsley">
-            <fieldset class="mandatory">
-                <label for="email">Email(*):</label>
-                <input name="email" type="text" data-type="email" required>
-                <label for="password">Password(*):</label>
-                <input name="password" type="password" required>
-                <label for="password_conf">Password confirmation(*):</label>
-                <input name="password_conf" type="password" required="true">
-                <label for="first_name">First name(*):</label>
-                <input name="first_name" type="text" required>
-                <label for="last_name">Last name(*):</label>
-                <input name="last_name" type="text" required>
-                <label for="county">County(*):</label>
-                <select name="county">
-                    <option value="Aberdeenshire">Aberdeenshire</option>
-                    <option value="Anglesey">Anglesey</option>
-                    <option value="Angus">Angus</option>
-                    <option value="Argyll">Argyll</option>
-                    <option value="Ayrshire">Ayrshire</option>
-                    <option value="Banffshire">Banffshire</option>
-                    <option value="Bedfordshire">Bedfordshire</option>
-                    <option value="Berwickshire">Berwickshire</option>
-                    <option value="Breconshire">Breconshire</option>
-                    <option value="Buckinghamshire">Buckinghamshire</option>
-                    <option value="Bute">Bute</option>
-                    <option value="Caernarvonshire">Caernarvonshire</option>
-                    <option value="Caithness">Caithness</option>
-                    <option value="Cambridgeshire">Cambridgeshire</option>
-                    <option value="Cardiganshire">Cardiganshire</option>
-                    <option value="Carmarthenshire">Carmarthenshire</option>
-                    <option value="Cheshire">Cheshire</option>
-                    <option value="Clackmannanshire">Clackmannanshire</option>
-                    <option value="Cornwall and Isles of Scilly">Cornwall and Isles of Scilly</option>
-                    <option value="Cumbria">Cumbria</option>
-                    <option value="Denbighshire">Denbighshire</option>
-                    <option value="Derbyshire">Derbyshire</option>
-                    <option value="Devon">Devon</option>
-                    <option value="Dorset">Dorset</option>
-                    <option value="Dumbartonshire">Dumbartonshire</option>
-                    <option value="Dumfriesshire">Dumfriesshire</option>
-                    <option value="Durham">Durham</option>
-                    <option value="East Lothian">East Lothian</option>
-                    <option value="East Sussex">East Sussex</option>
-                    <option value="Essex">Essex</option>
-                    <option value="Fife">Fife</option>
-                    <option value="Flintshire">Flintshire</option>
-                    <option value="Glamorgan">Glamorgan</option>
-                    <option value="Gloucestershire">Gloucestershire</option>
-                    <option value="Greater London">Greater London</option>
-                    <option value="Greater Manchester">Greater Manchester</option>
-                    <option value="Hampshire">Hampshire</option>
-                    <option value="Herefordshire">Herefordshire</option>
-                    <option value="Hertfordshire">Hertfordshire</option>
-                    <option value="Inverness">Inverness</option>
-                    <option value="Kent">Kent</option>
-                    <option value="Kincardineshire">Kincardineshire</option>
-                    <option value="Kinross-shire">Kinross-shire</option>
-                    <option value="Kirkcudbrightshire">Kirkcudbrightshire</option>
-                    <option value="Lanarkshire">Lanarkshire</option>
-                    <option value="Lancashire">Lancashire</option>
-                    <option value="Leicestershire">Leicestershire</option>
-                    <option value="Lincolnshire">Lincolnshire</option>
-                    <option value="London">London</option>
-                    <option value="Merionethshire">Merionethshire</option>
-                    <option value="Merseyside">Merseyside</option>
-                    <option value="Midlothian">Midlothian</option>
-                    <option value="Monmouthshire">Monmouthshire</option>
-                    <option value="Montgomeryshire">Montgomeryshire</option>
-                    <option value="Moray">Moray</option>
-                    <option value="Nairnshire">Nairnshire</option>
-                    <option value="Norfolk">Norfolk</option>
-                    <option value="North Yorkshire">North Yorkshire</option>
-                    <option value="Northamptonshire">Northamptonshire</option>
-                    <option value="Northumberland">Northumberland</option>
-                    <option value="Nottinghamshire">Nottinghamshire</option>
-                    <option value="Orkney">Orkney</option>
-                    <option value="Oxfordshire">Oxfordshire</option>
-                    <option value="Peebleshire">Peebleshire</option>
-                    <option value="Pembrokeshire">Pembrokeshire</option>
-                    <option value="Perthshire">Perthshire</option>
-                    <option value="Radnorshire">Radnorshire</option>
-                    <option value="Renfrewshire">Renfrewshire</option>
-                    <option value="Ross & Cromarty">Ross & Cromarty</option>
-                    <option value="Roxburghshire">Roxburghshire</option>
-                    <option value="Selkirkshire">Selkirkshire</option>
-                    <option value="Shetland">Shetland</option>
-                    <option value="Shropshire">Shropshire</option>
-                    <option value="Somerset">Somerset</option>
-                    <option value="South Yorkshire">South Yorkshire</option>
-                    <option value="Staffordshire">Staffordshire</option>
-                    <option value="Stirlingshire">Stirlingshire</option>
-                    <option value="Suffolk">Suffolk</option>
-                    <option value="Surrey">Surrey</option>
-                    <option value="Sutherland">Sutherland</option>
-                    <option value="Tyne and Wear">Tyne and Wear</option>
-                    <option value="Warwickshire">Warwickshire</option>
-                    <option value="West Lothian">West Lothian</option>
-                    <option value="West Midlands">West Midlands</option>
-                    <option value="West Sussex">West Sussex</option>
-                    <option value="West Yorkshire">West Yorkshire</option>
-                    <option value="Wigtownshire">Wigtownshire</option>
-                    <option value="Wiltshire">Wiltshire</option>
-                    <option value="Worcestershire">Worcestershire</option>
-                </select>
-                <fieldset class="date_of_birth">
-                    <legend>Date of birth:</legend>
-                    <input name="dob_day" type="text" placeholder="DD" required>
-                    <select name="dob_month">
-                        <option value=1>January</option>
-                        <option value=2>February</option>
-                        <option value=3>March</option>
-                        <option value=4>April</option>
-                        <option value=5>May</option>
-                        <option value=6>June</option>
-                        <option value=7>July</option>
-                        <option value=8>Auguest</option>
-                        <option value=9>September</option>
-                        <option value=10>October</option>
-                        <option value=11>November</option>
-                        <option value=12>December</option>
-                    </select>
-                    <input name="dob_year" type="text" placeholder="YYYY" required>
-                </fieldset>
-                <label for="description">Description(*):</label>
-                <textarea name="description" placeholder="Type a little bit about yourself and what you hope to get out of the mentoring process" required></textarea>
+    <form id="register-mentor" action="/mentor_signup" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset class="mandatory">
+            {{ form.email.label }} {{ form.email(required=True) }}
+            {{ form.password.label }} {{ form.password(required=True) }}
+            {{ form.password_confirmation.label }} {{ form.password_confirmation(required=True) }}
+            <fieldset class="name">
+                {{ form.first_name.label }} {{ form.first_name(required=True) }}
+                {{ form.last_name.label }} {{ form.last_name(required=True) }}
             </fieldset>
-            <fieldset class="optional">
-                <label for="keywords">Keywords (comma separated):</label>
-                <input name="keywords" type="text">
-                <label for="personal_site">Personal site:</label>
-                <input name="personal_site"type="text">
-                <label for="twitter_id">Twitter ID:</label>
-                @<input name="twitter_id" type="text">
-                <label for="linkedin">LinkdenIn:</label>
-                <input name="linkedin" type="text">
-                <label for="github">Github:</label>
-                <input name="github" type="text">
-            </fieldset>
-            <input type="submit" value="Cancel">
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+            {{ form.county.label }} {{ form.county(required=True) }}
+            {{ form.date_of_birth.label }} {{ form.date_of_birth(required=True) }}
+            {{ form.description.label }} {{ form.description(required=True) }}
+        </fieldset>
+        <fieldset class="optional">
+            {{ form.keywords.label }} {{ form.keywords(placeholder="TDD,Refactoring") }}
+            {{ form.personal_site.label }} {{ form.personal_site(placeholder="http://www.example.com") }}
+            {{ form.twitter_id.label }} @{{ form.twitter_id(placeholder="my_twitter_id") }}
+            {{ form.linkedin.label }} {{ form.linkedin(placeholder="http://www.linkedin.com/pub/my-name/7b/579/aba") }}
+            {{ form.github_id.label }} {{ form.github_id(placeholder="my_github_id") }}
+        </fieldset>
+        <input type="submit" value="Submit">
+        <input type="submit" value="Cancel" onClick="window.open('/')">
+    </form>
+    <script type="text/javascript">
+    </script>
 {% endblock %}
