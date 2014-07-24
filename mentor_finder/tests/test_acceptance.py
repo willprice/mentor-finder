@@ -53,4 +53,4 @@ class AcceptanceTest(flask_testcase.FlaskTestCase):
         self.client.post('/mentor_signup', data=mentor_form_data)
         response = self.client.post('/mentor_signup', data=mentor_form_data)
         print response.data
-        self.assertIn("That email address has already been registered", response.data)
+        self.assertIn("email address has already been registered", response.data)

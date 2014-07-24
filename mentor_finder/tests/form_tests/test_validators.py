@@ -1,21 +1,22 @@
+import unittest
 from mentor_finder.tests.flask_testcase import FlaskTestCase
-from mentor_finder.models.forms.validators import DuplicateAccount
+from mentor_finder.models.forms.validators import DuplicateAccount, MinimumAge
 from mentor_finder.models.faculty import Faculty
 from mentor_finder.tests.utilities import create_example_mentor
+import datetime
 
-from wtforms import ValidationError, Form, StringField
+from wtforms import ValidationError, Form, StringField, DateField
 
 
 
-class TestValidators(FlaskTestCase):
-
+class TestDuplicateAccountValidator(FlaskTestCase):
     def setUp(self):
         self.faculty = Faculty()
         self.mentor = create_example_mentor()
         self.faculty.add(self.mentor)
 
         class TestForm(Form):
-            email = StringField(u'Email field', [DuplicateAccount(self.faculty)])
+            email = StringField(u'Email', [DuplicateAccount(self.faculty)])
 
         self.TestForm = TestForm
 
@@ -28,6 +29,24 @@ class TestValidators(FlaskTestCase):
 
     def test_unknown_email_doesnt_raise_a_validation_error(self):
         form = self.TestForm(csrf_enabled=False)
-        form.process(email="example@example.com")
+        form.process(email=u"example@example.com")
         self.assertTrue(form.validate())
 
+class TestMinimumAgeValidator(unittest.TestCase):
+    def setUp(self):
+        class TestForm(Form):
+            date_of_birth = DateField(u'Date of birth', [MinimumAge(min=18)])
+
+        self.TestForm = TestForm
+        self.form = self.TestForm(csrf_enabled=False)
+
+    def test_date_of_birth_less_than_18_years_ago_raises_a_validation_error(self):
+        self.form.process(date_of_birth=datetime.date.today())
+        self.assertFalse(self.form.validate())
+
+    def test_date_of_birth_over_18_years_ago_doesnt_raise_a_validation_error(self):
+        year = datetime.timedelta(days=365)
+        eighteen_years = year * 18
+        dob_over_eighteen = datetime.date.today() - eighteen_years
+        self.form.process(date_of_birth=dob_over_eighteen)
+        self.assertTrue(self.form.validate())

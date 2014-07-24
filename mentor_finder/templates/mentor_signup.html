@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Mentor Signup{% endblock %}
 {% block head %}
-    <script data-main="static/js/mentor_finder/index.js"
-            src="static/js/mentor_finder/bower_components/requirejs/require.js"></script>
+    <script src="static/js/mentor_finder/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="static/js/mentor_finder/bower_components/modernizr/modernizr.js"></script>
+    <script src="static/js/polyfills/js-webshim/minified/polyfiller.js"></script>
+    <script>
+    webshim.polyfill();
+    </script>
 {% endblock %}
 {% block content %}
     <h1>Mentor signup</h1>
@@ -27,7 +31,9 @@
                 {{ form.last_name.label }} {{ form.last_name(required=True) }}
             </fieldset>
             {{ form.county.label }} {{ form.county(required=True) }}
+            <fieldset class="date_of_birth">
             {{ form.date_of_birth.label }} {{ form.date_of_birth(required=True) }}
+            </fieldset>
             {{ form.description.label }} {{ form.description(required=True) }}
         </fieldset>
         <fieldset class="optional">

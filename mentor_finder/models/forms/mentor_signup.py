@@ -4,7 +4,7 @@ from wtforms_html5 import DateField, EmailField, URLField
 from wtforms import PasswordField, SelectField, StringField, TextAreaField
 from wtforms.validators import DataRequired, Regexp, Optional, EqualTo
 from mentor_finder.models.county import get_counties
-from mentor_finder.models.forms.validators import DuplicateAccount
+from mentor_finder.models.forms.validators import DuplicateAccount, MinimumAge
 
 
 
@@ -30,7 +30,8 @@ def mentor_signup_form_factory(faculty, test=False):
         password_confirmation = PasswordField(u'Password confirmation*',
                                               validators=[DataRequired()])
         date_of_birth = DateField(u'Date of birth*',
-                                  validators=[DataRequired()])
+                                  validators=[DataRequired(),
+                                              MinimumAge(min=18)])
         description = TextAreaField(u'Description*',
                                     validators=[DataRequired()])
         keywords = StringField(u'Keywords',
