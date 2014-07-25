@@ -64,6 +64,13 @@
        version=develop
   notify: Restart apache
 
+- name: Clone mentor-finder-sensitive application
+  git: repo=git@github.com:willprice/apprentice-website-sensitive.git
+       dest=/var/www/mentor-finder/mentor_finder/sensitive
+       depth=1
+       version=master
+  notify: Restart apache
+
 - name: Install python dependencies in virtualenv
   pip: requirements=/var/www/mentor-finder/requirements.txt
        virtualenv=/var/www/mentor-finder/.virtualenv
