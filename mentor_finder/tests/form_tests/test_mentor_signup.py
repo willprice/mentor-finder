@@ -1,9 +1,10 @@
 from wtforms_test import FormTestCase
-from wtforms.validators import Regexp
-from mentor_finder.models.forms.mentor_signup import mentor_signup_form_factory
-from mentor_finder.models.forms.validators import DuplicateAccount
-from mentor_finder.models.faculty import Faculty
 from nose_parameterized import parameterized
+
+from mentor_finder.views.forms.mentor_signup import mentor_signup_form_factory
+from mentor_finder.views.forms.validators import DuplicateAccount
+from mentor_finder.models.faculty import Faculty
+
 
 class TestMentorSignupForm(FormTestCase):
     faculty = Faculty()
@@ -43,9 +44,28 @@ class TestMentorSignupForm(FormTestCase):
     def test_first_name_accepts_alphabetic_names(self):
         self.assert_valid({'first_name': "John"})
 
+    @parameterized.expand([
+        ["Johnson*"],
+        ["Timson*"],
+        ["Johnson$"]
+    ])
+    def test_first_name_doesnt_accept_nonalphabetic_names(self, invalid_last_name):
+        self.assert_invalid({'last_name': invalid_last_name}, 'last_name')
+
+    def test_first_name_accepts_alphabetic_names(self):
+        self.assert_valid({'last_name': "Johnson"})
+
     def test_password_confirmation_has_to_match_password(self):
         self.assert_invalid({'password': 'apprentice',
                              'password_confirmation': 'Apprentice'}, 'password')
 
     def test_checks_for_duplicate_accounts(self):
         self.assert_has_validator('email', DuplicateAccount)
+
+    def test_password_5_characters_long_is_not_accepted(self):
+        self.assert_invalid({'password': 'xxxxx',
+                             'password_confirmation': 'xxxxx'}, 'password')
+
+    def test_password_6_characters_long_is_valid(self):
+        self.assert_valid({'password': 'xxxxxx',
+                           'password_confirmation': 'xxxxxx'})

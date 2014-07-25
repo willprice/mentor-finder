@@ -3,14 +3,14 @@ from flask import Flask
 from flask import url_for
 from flask_wtf import CsrfProtect
 
-from mentor_finder.controller import Controller
+from mentor_finder.web_controller import Controller
 from mentor_finder.sensitive.passes import add_sensitive_information_to_app
 
 
 app = Flask(__name__)
 app.secret_key = "A0Zr98j/3yX R~XHH!jmN]LWX/,?RT"
 
-controller = Controller()
+controller = Controller(app)
 mail = Mail()
 csrf = CsrfProtect()
 

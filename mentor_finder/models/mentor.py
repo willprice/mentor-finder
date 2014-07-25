@@ -26,10 +26,8 @@ class MentorFieldParser(object):
     def parse_date_of_birth(self, fields):
         try:
             date_of_birth = dateutil.parser.parse(fields['date_of_birth'])
-        except KeyError:
-            date_of_birth = datetime.date(int(fields['dob_year']),
-                                          int(fields['dob_month']),
-                                          int(fields['dob_day']))
+        except AttributeError:
+            date_of_birth = fields['date_of_birth']
         return date_of_birth
 
     def parse_optional_fields(self):

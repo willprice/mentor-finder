@@ -10,15 +10,15 @@
 {% endblock %}
 {% block content %}
     <h1>Mentor signup</h1>
-    {% if form.errors %}
-        {% for field in form.errors.keys() %}
+    {% set messages = get_flashed_messages() %}
+    {% if messages %}
+        <div id="errors">
+        {% for message in messages %}
             <div class="error">
-            <p>{{ field }}:</p>
-            {% for error in form.errors[field] %}
-                {{ error }}
-            {% endfor %}
+                {{ message }}
             </div>
         {% endfor %}
+        </div>
     {% endif %}
     <form id="register-mentor" action="/mentor_signup" method="POST">
         {{ form.hidden_tag() }}
