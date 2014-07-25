@@ -4,7 +4,6 @@ from flask import url_for
 from flask_wtf import CsrfProtect
 
 from mentor_finder.web_controller import Controller
-from mentor_finder.sensitive.passes import add_sensitive_information_to_app
 
 
 app = Flask(__name__)
@@ -29,7 +28,11 @@ if __name__ == '__main__':
         MAIL_USE_TLS=True,
     )
 
-    add_sensitive_information_to_app(app)
+    try:
+        from mentor_finder.sensitive.passes import add_sensitive_information_to_app
+        add_sensitive_information_to_app(app)
+    except ImportError:
+        print "Sensitive passes not found, continuing without, expect errors!"
 
     csrf.init_app(app)
     mail.init_app(app)
