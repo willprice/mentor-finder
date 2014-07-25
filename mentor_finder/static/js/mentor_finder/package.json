@@ -8,7 +8,7 @@
     "phantomjs": "^1.9.7-14"
   },
   "devDependencies": {
-    "cases": "^0.1.1",
+    "cases": "git://github.com/willprice/cases",
     "chai": "^1.9.1",
     "mocha": "^1.20.1",
     "mocha-phantomjs": "^3.5.0"
