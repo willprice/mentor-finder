@@ -1,6 +1,7 @@
 # Mentor finder
 [![Stories in Done](https://badge.waffle.io/willprice/mentor-finder.png?label=done&title=Done)](http://waffle.io/willprice/mentor-finder)
 [![Stories in Ready](https://badge.waffle.io/willprice/mentor-finder.png?label=ready&title=Ready)](http://waffle.io/willprice/mentor-finder)
+[![Travis build status](https://travis-ci.org/willprice/mentor-finder.svg?branch=master)](https://travis-ci.org/willprice/mentor-finder)
 
 A web application designed to connect prospective students to mentors. Mentors post their details for students, students
 browse mentors to find one whose interests match theirs and contact them.
