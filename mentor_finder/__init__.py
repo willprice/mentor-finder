@@ -21,20 +21,21 @@ def serve_static_files():
     url_for('static', filename='css/main.css')
     url_for('static', filename='css/normalize.css')
 
-if __name__ == '__main__':
+
+def main():
     app.config.update(
         DEBUG=True,
         MAIL_SERVER='smtp.gmail.com',
         MAIL_PORT=587,
         MAIL_USE_TLS=True,
     )
-
     add_sensitive_information_to_app(app)
-
     csrf.init_app(app)
     mail.init_app(app)
-
     app.run()
-
     if app.debug:
         serve_static_files()
+
+
+if __name__ == '__main__':
+    main()
