@@ -33,3 +33,6 @@ EOF
 ```
 
 Now you should be able to run the application with `./manage.py run`
+
+If you'd like to run the tests then a simple `make test` will run the tests
+throughout the application :)
