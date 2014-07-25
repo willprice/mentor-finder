@@ -21,11 +21,11 @@ class Controller(object):
 
     def process_mentor_form(self, form, data, success_fn, fail_fn):
         if form.validate_on_submit():
-            try:
-                mentor = self.add_mentor(data)
-                return success_fn(mentor)
-            except MentorAlreadyExistsError:
-                return fail_fn()
+                added, mentor = self.add_mentor(data)
+                if added:
+                    return success_fn(mentor)
+                else:
+                    return fail_fn()
         else:
             self.error_reporter(form)
             return fail_fn()
