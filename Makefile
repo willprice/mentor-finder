@@ -5,7 +5,6 @@ JS_DIR=mentor_finder/static/js/mentor_finder/
 test: python-test js-test
 
 python-test:
-	-workon 'mentor_finder'
 	nosetests
 
 js-test:
