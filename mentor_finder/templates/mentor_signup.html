@@ -8,14 +8,16 @@
     webshim.polyfill();
     </script>
 {% endblock %}
+{% block header %}
+<h1>Mentor signup</h1>
+{% endblock %}
 {% block content %}
-    <h1>Mentor signup</h1>
-    {% set messages = get_flashed_messages() %}
-    {% if messages %}
+    {% set errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
         <div id="errors">
-        {% for message in messages %}
+        {% for error in errors %}
             <div class="error">
-                {{ message }}
+                <strong class="type">ERROR: </strong> {{ error }}
             </div>
         {% endfor %}
         </div>

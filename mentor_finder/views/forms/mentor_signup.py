@@ -30,7 +30,8 @@ def mentor_signup_form_factory(faculty, test=False):
                                  validators=[DataRequired(),
                                              EqualTo('password_confirmation',
                                                      message=u'Your passwords do not match'),
-                                             Length(min=6)
+                                             Length(min=6,
+                                                    message="Sorry, but your password must be at least 6 characters long")
                                              ])
         password_confirmation = PasswordField(u'Password confirmation*',
                                               validators=[DataRequired()])

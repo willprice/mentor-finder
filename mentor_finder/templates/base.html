@@ -10,7 +10,19 @@
     {% endblock %}
 </head>
 <body>
+{% block header %}
+{% endblock %}
 <div id="content">
+    {% set messages = get_flashed_messages(category_filter=["message"]) %}
+    {% if messages %}
+        <div id="messages">
+            {% for message in messages %}
+                <div class="message">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     {% block content %}{% endblock %}
 </div>
 <footer>

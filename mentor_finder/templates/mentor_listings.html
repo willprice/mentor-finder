@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Mentor Listings{% endblock %}
-{% block content %}
+{% block header %}
     <h1>Mentor listings</h1>
+{% endblock %}
+{% block content %}
     {% for mentor in mentors %}
         {% set classes = "mentor" %}
         {% if current == mentor %}
