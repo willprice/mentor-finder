@@ -10,5 +10,9 @@ python-test:
 js-test:
 	$(MAKE) -C $(JS_DIR) test
 
+install_dependencies:
+	pip install -r requirements.txt
+	$(MAKE) -C $(JS_DIR) install_dependencies
 
-.PHONY: test python-test js-test
+
+.PHONY: test python-test js-test install_dependencies

@@ -4,4 +4,7 @@
 test:
 	npm test
 
-.PHONY: test
+install_dependencies:
+	npm install
+
+.PHONY: test install_dependencies
