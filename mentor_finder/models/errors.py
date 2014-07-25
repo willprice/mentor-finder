@@ -1,0 +1,2 @@
+class MentorAlreadyExistsError(Exception):
+    pass

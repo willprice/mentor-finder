@@ -1,0 +1,21 @@
+{
+  "name": "mentor_finder",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "mocha-phantomjs": "^3.5.0",
+    "phantomjs": "^1.9.7-14"
+  },
+  "devDependencies": {
+    "cases": "^0.1.1",
+    "chai": "^1.9.1",
+    "mocha": "^1.20.1",
+    "mocha-phantomjs": "^3.5.0"
+  },
+  "scripts": {
+    "test": "mocha-phantomjs -p $(which phantomjs) test.html"
+  },
+  "author": "Will Price",
+  "license": "ISC"
+}

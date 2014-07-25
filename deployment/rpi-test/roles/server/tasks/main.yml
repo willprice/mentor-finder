@@ -23,11 +23,17 @@
     - libxslt1-dev
     - gcc
 
+- name: Copy apache2 configuration
+  copy: src=apache2.conf dest=/etc/apache2/
+  notify: Restart apache
+
 - name: Copy mentor-finder site configuration
   copy: src=mentor-finder dest=/etc/apache2/sites-available/
+  notify: Restart apache
 
 - name: Copy mentor-finder-static site configuration
   copy: src=mentor-finder dest=/etc/apache2/sites-available/
+  notify: Restart apache
 
 - name: Enable mentor-finder site
   command: a2ensite mentor-finder
@@ -52,12 +58,19 @@
   service: name=apache2 state=started enabled=yes
 
 - name: Clone mentor-finder application
-  git: repo=https://github.com/willprice/apprentice-website.git 
-       dest=/var/www/mentor-finder 
+  git: repo=https://github.com/willprice/apprentice-website.git
+       dest=/var/www/mentor-finder
        depth=1
        version=develop
   notify: Restart apache
 
+- name: Clone mentor-finder-sensitive application
+  git: repo=git@github.com:willprice/apprentice-website-sensitive.git
+       dest=/var/www/mentor-finder/mentor_finder/sensitive
+       depth=1
+       version=master
+  notify: Restart apache
+
 - name: Install python dependencies in virtualenv
-  pip: requirements=/var/www/mentor-finder/requirements.txt 
+  pip: requirements=/var/www/mentor-finder/requirements.txt
        virtualenv=/var/www/mentor-finder/.virtualenv

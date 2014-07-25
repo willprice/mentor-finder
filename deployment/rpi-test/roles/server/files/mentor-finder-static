@@ -1,9 +1,9 @@
-Alias   /robots.txt    /var/www/mentor-finder/static/robots.txt
-Alias   /humans.txt    /var/www/mentor-finder/static/humans.txt
-Alias   /favicon.ico   /var/www/mentor-finder/static/favicon.ico
-Alias   /static/       /var/www/mentor-finder/static/
+Alias   /robots.txt    /var/www/mentor-finder/mentor_finder/static/robots.txt
+Alias   /humans.txt    /var/www/mentor-finder/mentor_finder/static/humans.txt
+Alias   /favicon.ico   /var/www/mentor-finder/mentor_finder/static/favicon.ico
+Alias   /static/       /var/www/mentor-finder/mentor_finder/static/
 
-<Directory /var/www/mentor-finder/static>
+<Directory /var/www/mentor-finder/mentor_finder/static>
 Order deny,allow
 Allow from all
 </Directory>

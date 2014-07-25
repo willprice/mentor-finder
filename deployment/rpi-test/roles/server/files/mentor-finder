@@ -1,6 +1,3 @@
-ErrorLog "/var/log/apache2/error.log"
-CustomLog "/var/log/apache2/access.log" combined
-
 <VirtualHost *:80>
     ServerName rocker9455.mooo.com
     ServerAlias www.rocker9455.mooo.com
@@ -13,7 +10,7 @@ CustomLog "/var/log/apache2/access.log" combined
         </Files>
     </Directory>
 
-    
+
     WSGIProcessGroup  mentor-finder
     WSGIScriptAlias   / /var/www/mentor-finder/mentor_finder.wsgi
     WSGIDaemonProcess mentor-finder \

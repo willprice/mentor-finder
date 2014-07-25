@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Mentor Signup{% endblock %}
+{% block head %}
+    <script src="static/js/mentor_finder/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="static/js/mentor_finder/bower_components/modernizr/modernizr.js"></script>
+    <script src="static/js/polyfills/js-webshim/minified/polyfiller.js"></script>
+    <script>
+    webshim.polyfill();
+    </script>
+{% endblock %}
+{% block content %}
+    <h1>Mentor signup</h1>
+    {% set messages = get_flashed_messages() %}
+    {% if messages %}
+        <div id="errors">
+        {% for message in messages %}
+            <div class="error">
+                {{ message }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    <form id="register-mentor" action="/mentor_signup" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset class="mandatory">
+            {{ form.email.label }} {{ form.email(required=True) }}
+            {{ form.password.label }} {{ form.password(required=True) }}
+            {{ form.password_confirmation.label }} {{ form.password_confirmation(required=True) }}
+            <fieldset class="name">
+                {{ form.first_name.label }} {{ form.first_name(required=True) }}
+                {{ form.last_name.label }} {{ form.last_name(required=True) }}
+            </fieldset>
+            {{ form.county.label }} {{ form.county(required=True) }}
+            <fieldset class="date_of_birth">
+            {{ form.date_of_birth.label }} {{ form.date_of_birth(required=True) }}
+            </fieldset>
+            {{ form.description.label }} {{ form.description(required=True) }}
+        </fieldset>
+        <fieldset class="optional">
+            {{ form.keywords.label }} {{ form.keywords(placeholder="TDD,Refactoring") }}
+            {{ form.personal_site.label }} {{ form.personal_site(placeholder="http://www.example.com") }}
+            {{ form.twitter_id.label }} @{{ form.twitter_id(placeholder="my_twitter_id") }}
+            {{ form.linkedin.label }} {{ form.linkedin(placeholder="http://www.linkedin.com/pub/my-name/7b/579/aba") }}
+            {{ form.github_id.label }} {{ form.github_id(placeholder="my_github_id") }}
+        </fieldset>
+        <input type="submit" value="Submit">
+        <input type="submit" value="Cancel" onClick="window.open('/', '_self')">
+    </form>
+    <script type="text/javascript">
+    </script>
+{% endblock %}
