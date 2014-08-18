@@ -5,5 +5,5 @@ install: make install_dependencies
 script: make test
 deploy:
   provider: heroku
-12007230-e24b-46cb-bf1f-078f3801d96c:
-  secure: Ozh6RxG3ypBfnZrEGPwDaY91va/DP3tjv6W6Apm3IlwVbGm7Zo0eLF+KnjDOkspK3yJ5/p04A01s0HrO3HTyx4WK3rotWgNX0GETA2lPuCmT0xMIbaO79DUpp8SDfdoU+G+Hf5VK6YTsAF7iPrM7P37uDWToluat7ZPg8c4Wg3k=
+  api_key:
+    secure: aL4uDrsLzQmNzAi+HtH8bxLzVIq7uSUaJxXvOiM8KZVN8oIhrSfPqB5j/vUd3mm0+zaGg9xdxU5QHvAJBK1hVBVjLj5Cq7fWQZQ6fEkV1GlLJoSBFcKq7PBUeF6Tw9bmY3NDjIEKqzTSaBKNOiylap+Ju81R0sAZVgSKTsPENDM=
