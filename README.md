@@ -1,5 +1,6 @@
 # Mentor finder
 [Example deploy (heroku)](http://mentor-finder.herokuapp.com/)
+
 [![Stories in Done](https://badge.waffle.io/willprice/mentor-finder.png?label=done&title=Done)](http://waffle.io/willprice/mentor-finder)
 [![Stories in Ready](https://badge.waffle.io/willprice/mentor-finder.png?label=ready&title=Ready)](http://waffle.io/willprice/mentor-finder)
 [![Travis build status](https://travis-ci.org/willprice/mentor-finder.svg?branch=master)](https://travis-ci.org/willprice/mentor-finder)
