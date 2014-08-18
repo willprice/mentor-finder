@@ -12,7 +12,7 @@ Jinja2==2.7.3
 MarkupSafe==0.23
 SQLAlchemy==0.9.6
 WTForms==2.0.1
-WTForms-Test==0.1.1
+-e git+https://github.com/willprice/wtforms-test.git@96f006c8dabf6413338e929c64fdf7fe32d26e87#egg=WTForms_Test-master
 Werkzeug==0.9.6
 argparse==1.2.1
 blinker==1.3
