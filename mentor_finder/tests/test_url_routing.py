@@ -14,4 +14,3 @@ class TestMentorFinder(flask_testcase.FlaskTestCase):
     def test_mentor_listings_exist_at_(self):
         mentor_listings = self.client.get('/mentor_listings')
         assert u'Mentor Listings' in mentor_listings.data
-

@@ -1,3 +1,5 @@
+from __future__ import print_function
+import sys
 from flask import Blueprint, render_template, request, flash
 
 from mentor_finder import controller
@@ -28,6 +30,7 @@ def mentor_signup(**kwargs):
     form = MentorSignupForm()
 
     if request.method == 'POST':
+        print(request.form, file=sys.stderr)
         return controller.process_mentor_form(form, request.form,
                                               lambda mentor: mentor_listings(current=mentor),
                                               lambda : _mentor_signup(form))
