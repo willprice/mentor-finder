@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-import flask_testcase
+from flask_testing import LiveServerTestCase
+from mentor_finder.tests.flask_testcase import FlaskTestCase
 
 
-class TestMentorFinder(flask_testcase.FlaskTestCase):
+class TestMentorFinder(FlaskTestCase):
     def test_landing_page_exists_at_site_root(self):
         root = self.client.get('/')
         assert u'Landing page' in root.data
