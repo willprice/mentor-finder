@@ -12,7 +12,7 @@
 
 
     WSGIProcessGroup  mentor-finder
-    WSGIScriptAlias   / /var/www/mentor-finder/mentor_finder.wsgi
+    WSGIScriptAlias   / /var/www/mentor-finder/mentor_finder/wsgi.py
     WSGIDaemonProcess mentor-finder \
                       threads=1 \
                       home=/var/www/mentor-finder \
