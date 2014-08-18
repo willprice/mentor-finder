@@ -1,6 +1,6 @@
-from wtforms_test import FormTestCase
 from nose_parameterized import parameterized
 
+from mentor_finder.tests.form_tests.form_test_case import FormTestCase
 from mentor_finder.views.forms.mentor_signup import mentor_signup_form_factory
 from mentor_finder.views.forms.validators import DuplicateAccount
 from mentor_finder.models.faculty import Faculty
