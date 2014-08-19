@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-from flask_testing import LiveServerTestCase
+from mock import Mock, patch
+import unittest
+
 from mentor_finder.tests.flask_testcase import FlaskTestCase
 
 
@@ -15,3 +17,10 @@ class TestMentorFinder(FlaskTestCase):
     def test_mentor_listings_exist_at_(self):
         mentor_listings = self.client.get('/mentor_listings')
         assert u'Mentor Listings' in mentor_listings.data
+
+    @unittest.skip('Need to fix patching')
+    @patch('mentor_finder.views.activate_mentor')
+    def test_visiting_user_activate_url_activates_user(self,  activate_mentor):
+        token = "EXAMPLE_URLSAFE_TOKEN"
+        self.client.get('/users/activate/' + token)
+        activate_mentor.assert_called_once_with(token)

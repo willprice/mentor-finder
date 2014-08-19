@@ -1,11 +1,19 @@
 class Name(object):
     def __init__(self, first_name, second_name):
-        self._first_name = first_name
-        self._second_name = second_name
+        self._first = first_name
+        self._second = second_name
+
+    @property
+    def first(self):
+        return self._first
+
+    @property
+    def second(self):
+        return self._second
 
     def __eq__(self, other):
-        return self._first_name == other._first_name and \
-               self._second_name == other._second_name
+        return self.first == other.first and \
+               self.second == other.second
 
     def __str__(self):
-        return self._first_name + " " + self._second_name
+        return self._first + " " + self._second

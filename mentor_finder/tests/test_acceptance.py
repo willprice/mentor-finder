@@ -1,9 +1,8 @@
 import flask_testcase
-from flask import get_flashed_messages, request
 import mentor_finder
 from mentor_finder.models.name import Name
-from mentor_finder.models.mentor import MentorFieldParser
 import datetime
+
 
 class AcceptanceTest(flask_testcase.FlaskTestCase):
     def test_adding_a_mentor_produces_a_mentor(self):
@@ -52,5 +51,4 @@ class AcceptanceTest(flask_testcase.FlaskTestCase):
         )
         self.client.post('/mentor_signup', data=mentor_form_data)
         response = self.client.post('/mentor_signup', data=mentor_form_data)
-        print response.data
         self.assertIn("email address has already been registered", response.data)

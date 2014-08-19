@@ -1,7 +1,12 @@
 import unittest
+from datetime import datetime
+
+from mock import Mock
+from mock import patch
 from nose_parameterized import parameterized
-import datetime
-import utilities
+
+import mentor_finder.tests.utilities as utilities
+from mentor_finder.tests.utilities import FakeDatetime
 
 
 class TestMentorModel(unittest.TestCase):
@@ -41,8 +46,8 @@ class TestMentorModel(unittest.TestCase):
         self.assertEqual(description, jason.description)
 
     @parameterized.expand([
-        [datetime.datetime(1900, 01, 01), u"1900-01-01"],
-        [datetime.datetime(1900, 12, 30), u"1900-12-30"]
+        [datetime(1900, 01, 01), u"1900-01-01"],
+        [datetime(1900, 12, 30), u"1900-12-30"]
     ])
     def test_stores_date_of_birth(self, expected_date, date_string):
         jason = utilities.create_example_mentor(date_of_birth=date_string)
@@ -108,3 +113,14 @@ class TestMentorModel(unittest.TestCase):
     def test_account_is_initially_deactivated(self):
         mentor = utilities.create_example_mentor()
         self.assertFalse(mentor.activated)
+
+    def test_stores_date_at_signup(self):
+
+        with patch('mentor_finder.models.mentor_parser.datetime',
+                   FakeDatetime) as fake_datetime:
+            now = datetime(1900, 1, 1)
+            fake_datetime.now = Mock(return_value=now)
+            self.assertEqual(now, utilities.create_example_mentor() .signup_date)
+
+
+

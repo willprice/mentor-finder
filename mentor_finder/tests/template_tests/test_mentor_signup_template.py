@@ -20,7 +20,6 @@ class TestMentorSignupTemplate(TemplateTestCase, FlaskTestCase):
         flash_errors(form)
 
         html = render_template('mentor_signup.html', form=form)
-        print html
         tree = lxml.html.fromstring(html)
         number_of_error_divs = tree.xpath(self.error_div_xpath)
         self.assertGreater(len(number_of_error_divs), 1)

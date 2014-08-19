@@ -1,6 +1,6 @@
+from datetime import datetime
 import mentor_finder.models
-import datetime
-from mentor_finder.models.mentor import MentorFieldParser
+from mentor_finder.models.mentor_parser import MentorFieldParser
 
 _basic_mentor_details = dict(
     first_name="Jason",
@@ -30,3 +30,8 @@ def create_minimal_example_mentor(**kwargs):
 
 def create_example_mentor(**kwargs):
     return MentorFieldParser(dict(_jasons_details, **kwargs)).get_mentor()
+
+
+class FakeDatetime(datetime):
+    def __new__(cls, *args, **kwargs):
+        return datetime.__new__(*args, **kwargs)
