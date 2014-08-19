@@ -10,13 +10,16 @@ from mentor_finder.web_controller import Controller
 class MentorFinder(object):
     def __init__(self, secret_key="Super secret key"):
         self.app = Flask(__name__)
-        self.app.secret_key = secret_key
         self.controller = Controller(self.app)
-        self.app.register_blueprint(mentor_finder.views.mod)
+        self.setup_views()
+        self.app.secret_key = secret_key
 
-finder = MentorFinder()
-app = finder.app
-controller = finder.controller
+    def setup_views(self):
+        self.views = {
+            'general': mentor_finder.views.MentorFinderViews(self),
+        }
+        self.app.register_blueprint(self.views['general'])
+
 
 
 def serve_static_files():
@@ -24,6 +27,8 @@ def serve_static_files():
     url_for('static', filename='css/normalize.css')
 
 if __name__ == '__main__':
+    finder = MentorFinder()
+    app = finder.app
     app.config.update(
         DEBUG=True,
         MAIL_SERVER='smtp.gmail.com',
@@ -45,5 +50,5 @@ if __name__ == '__main__':
 
     app.run()
 
-if app.debug or app.testing:
-    serve_static_files()
+    if app.debug or app.testing:
+        serve_static_files()

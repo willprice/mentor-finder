@@ -18,9 +18,9 @@ class TestMentorFinder(FlaskTestCase):
         mentor_listings = self.client.get('/mentor_listings')
         assert u'Mentor Listings' in mentor_listings.data
 
-    @unittest.skip('Need to fix patching')
-    @patch('mentor_finder.views.activate_mentor')
-    def test_visiting_user_activate_url_activates_user(self,  activate_mentor):
+    @unittest.skip('Need to mock out activator so can make sure its '
+                   'been called')
+    def test_visiting_user_activate_url_activates_user(self):
         token = "EXAMPLE_URLSAFE_TOKEN"
-        self.client.get('/users/activate/' + token)
-        activate_mentor.assert_called_once_with(token)
+        url = '/users/activate/' + token
+        self.client.get(url)

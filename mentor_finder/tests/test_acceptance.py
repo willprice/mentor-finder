@@ -22,9 +22,10 @@ class AcceptanceTest(flask_testcase.FlaskTestCase):
             twitter_id="jasongorman"
         )
         self.client.post('/mentor_signup', data=mentor_form_data)
-        actual_mentor = mentor_finder.controller.faculty.get_mentor(mentor_form_data['email'])
+        actual_mentor = self.finder.controller.faculty.get_mentor(
+            mentor_form_data['email'])
 
-        assert actual_mentor is not None
+        self.assertIsNotNone(actual_mentor)
         self.assertEqual(u"jasongorman@codemanship.com", actual_mentor.email)
         self.assertEqual(Name(u"Jason", u"Gorman"), actual_mentor.name)
         self.assertEqual(u"Greater London", actual_mentor.county)

@@ -4,7 +4,6 @@ from flask import Blueprint, render_template, request, flash
 from mentor_finder.views.forms.mentor_signup import mentor_signup_form_factory
 
 
-mod = Blueprint('general', __name__)
 
 
 def flash_errors(form):
@@ -12,37 +11,52 @@ def flash_errors(form):
         for error in errors:
             flash(u'Error in the %s field - %s' % (getattr(form, field).label.text, error))
 
-@mod.route('/')
-def landing_page():
-    return render_template('landing_page.html')
+class MentorFinderViews(Blueprint):
+    def __init__(self, mentor_finder):
+        Blueprint.__init__(self, 'MentorFinderViews', __name__)
+        self.mentor_finder = mentor_finder
+        self.add_url_rules()
+
+    def add_url_rules(self):
+        self.add_url_rule('/', 'landing_page', self.landing_page)
+        self.add_url_rule('/mentor_signup', 'mentor_signup',
+                          self.mentor_signup,
+                          methods=('GET', 'POST'))
+        self.add_url_rule('/mentor_listings', 'mentor_listing', self
+                          .mentor_listings)
+        self.add_url_rule('/users/activate/<key>', 'activate_mentor',
+                          self.activate_mentor)
+
+    def landing_page(self):
+        return render_template('landing_page.html')
 
 
-@mod.route('/mentor_signup', methods=('GET', 'POST'))
-def mentor_signup(**kwargs):
-    def _mentor_signup(form):
-        return render_template('mentor_signup.html', form=form, **kwargs)
-    controller = _get_controller()
-    MentorSignupForm = mentor_signup_form_factory(controller.faculty)
+    def mentor_signup(self, **kwargs):
+        def _mentor_signup(form):
+            return render_template('mentor_signup.html', form=form, **kwargs)
+        MentorSignupForm = mentor_signup_form_factory(self._get_controller().faculty)
 
-    form = MentorSignupForm()
+        form = MentorSignupForm()
 
-    if request.method == 'POST':
-        return controller.process_mentor_form(form, request.form,
-                                              lambda mentor: mentor_listings(current=mentor),
-                                              lambda : _mentor_signup(form))
-    else:
-        return _mentor_signup(form)
+        if request.method == 'POST':
+            return self._get_controller() \
+                .process_mentor_form(form, request.form,
+                                     lambda mentor:
+                                     self.mentor_listings(
+                                         current=mentor),
+                                     lambda : _mentor_signup(form))
+        else:
+            return _mentor_signup(form)
 
 
-@mod.route('/mentor_listings')
-def mentor_listings(current=None):
-    controller = _get_controller()
-    return render_template('mentor_listings.html', mentors=controller.faculty, current=current)
+    def mentor_listings(self, current=None):
+        return render_template('mentor_listings.html',
+                               mentors=self._get_controller().faculty,
+                               current=current)
 
-@mod.route('/users/activate/<key>')
-def activate_mentor(key):
-    return mentor_listings()
+    def activate_mentor(self, key):
+        return self.mentor_listings()
 
-def _get_controller():
-    from mentor_finder import controller
-    return controller
+    def _get_controller(self):
+        return self.mentor_finder.controller
+
