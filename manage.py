@@ -9,7 +9,7 @@ manager = Manager(mentor_finder.wsgi.app)
 
 @manager.command
 def run():
-    mentor_finder.main()
+    mentor_finder.wsgi.app.run()
 
 @manager.command
 def test():
