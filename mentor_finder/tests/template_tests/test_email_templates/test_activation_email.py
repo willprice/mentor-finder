@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from jinja2 import Environment, FileSystemLoader
 
 from mentor_finder.tests.template_testcase import TemplateTestCase

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import lxml.html
 from flask import render_template
 from mentor_finder.web import flash_errors

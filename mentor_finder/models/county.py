@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 _counties = [
     ("Aberdeenshire", "Aberdeenshire"),
     ("Anglesey", "Anglesey"),

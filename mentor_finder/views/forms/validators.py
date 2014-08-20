@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from wtforms import ValidationError
 import datetime
 import dateutil

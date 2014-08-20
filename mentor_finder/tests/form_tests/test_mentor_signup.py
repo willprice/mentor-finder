@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from nose_parameterized import parameterized
 
 from wtforms_test import FormTestCase

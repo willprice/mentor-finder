@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import print_function
 from flask import Blueprint, render_template, request, flash
 
@@ -55,6 +56,7 @@ class MentorFinderViews(Blueprint):
                                current=current)
 
     def activate_mentor(self, key):
+        self.mentor_finder.activate_mentor(key)
         return self.mentor_listings()
 
     def _get_controller(self):

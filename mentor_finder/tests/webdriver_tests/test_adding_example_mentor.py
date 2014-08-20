@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask.ext.testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from mentor_finder.models.errors import MentorAlreadyExistsError
 
 

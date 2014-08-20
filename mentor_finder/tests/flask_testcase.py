@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import flask.ext.testing
 import mentor_finder
 

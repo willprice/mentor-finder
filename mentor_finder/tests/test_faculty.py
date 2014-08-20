@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 from mentor_finder.models.errors import MentorAlreadyExistsError
 from mentor_finder.models.faculty import Faculty

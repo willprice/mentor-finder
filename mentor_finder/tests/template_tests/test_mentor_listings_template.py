@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 from nose_parameterized import parameterized
 from jinja2 import Environment, FileSystemLoader

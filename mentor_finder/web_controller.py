@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from mentor_finder.models.errors import MentorAlreadyExistsError
 from mentor_finder.models.faculty import Faculty
 from mentor_finder.models.mentor_parser import MentorFieldParser

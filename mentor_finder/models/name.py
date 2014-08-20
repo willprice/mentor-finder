@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Name(object):
     def __init__(self, first_name, second_name):
         self._first = first_name

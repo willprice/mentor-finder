@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Mentor(object):
     def __init__(self, name, county, description, date_of_birth, email,
                  personal_site=None, twitter_id=None, keywords=None,

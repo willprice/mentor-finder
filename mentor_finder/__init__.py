@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask_mail import Mail
 from flask import Flask
 from flask import url_for
@@ -11,14 +12,19 @@ class MentorFinder(object):
     def __init__(self, secret_key="Super secret key"):
         self.app = Flask(__name__)
         self.controller = Controller(self.app)
-        self.setup_views()
+        self.views = self.setup_views()
         self.app.secret_key = secret_key
 
     def setup_views(self):
-        self.views = {
+        views = {
             'general': mentor_finder.views.MentorFinderViews(self),
         }
-        self.app.register_blueprint(self.views['general'])
+        self.app.register_blueprint(views['general'])
+        return views
+
+    def activate_mentor(self, key):
+        self.controller.activate_mentor()
+        self.app.secret_key
 
 
 

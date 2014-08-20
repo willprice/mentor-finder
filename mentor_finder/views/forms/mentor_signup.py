@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import flask_wtf
 import wtforms
 from wtforms_html5 import DateField, EmailField, URLField

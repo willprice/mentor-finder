@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 import mentor_finder.models
 from mentor_finder.models.mentor_parser import MentorFieldParser
