@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import flask_testcase
-import mentor_finder
 from mentor_finder.models.name import Name
 import datetime
 

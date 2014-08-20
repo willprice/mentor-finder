@@ -2,10 +2,10 @@
 from flask.ext.script import Manager
 import subprocess
 
-import mentor_finder
+import mentor_finder.wsgi
 NOSE_ARGS = ['--exe', '--with-coverage', '--cover-package=mentor_finder']
 
-manager = Manager(mentor_finder.app)
+manager = Manager(mentor_finder.wsgi.app)
 
 @manager.command
 def run():

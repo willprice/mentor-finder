@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import lxml.html
 from flask import render_template
-from mentor_finder.web import flash_errors
+from mentor_finder.util import flash_errors
 
 from mentor_finder.views.forms.mentor_signup import mentor_signup_form_factory
 from mentor_finder.models.faculty import Faculty

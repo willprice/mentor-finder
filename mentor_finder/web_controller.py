@@ -2,7 +2,7 @@
 from mentor_finder.models.errors import MentorAlreadyExistsError
 from mentor_finder.models.faculty import Faculty
 from mentor_finder.models.mentor_parser import MentorFieldParser
-from mentor_finder.web import flash_errors
+from mentor_finder.util import flash_errors
 
 def default_error_reporter(form):
     flash_errors(form)
@@ -30,3 +30,6 @@ class Controller(object):
         else:
             self.error_reporter(form)
             return fail_fn()
+
+    def activate_mentor(self, key):
+        pass
