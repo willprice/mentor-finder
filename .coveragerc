@@ -1,0 +1,2 @@
+[run]
+omit=['mentor_finder/tests/']
