@@ -5,6 +5,7 @@ import subprocess
 NOSE_ARGS = ['--exe',
              '--with-coverage',
              '--cover-package=mentor_finder',
+             '--cover-branches'
              ]
 
 import mentor_finder.wsgi
