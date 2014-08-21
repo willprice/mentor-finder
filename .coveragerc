@@ -1,2 +1,2 @@
 [run]
-omit=['mentor_finder/tests/']
+omit=['mentor_finder/tests/*']
