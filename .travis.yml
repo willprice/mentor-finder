@@ -3,7 +3,7 @@ python:
 - '2.7'
 install:
     - make install_deps
-    - make install_test_deps
+    - make install_dev_deps
 script:
     - make test
 after_success:
