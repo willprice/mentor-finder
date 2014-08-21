@@ -7,7 +7,7 @@ from wtforms import Form, StringField, DateField
 from mentor_finder.tests.flask_testcase import FlaskTestCase
 from mentor_finder.views.forms.validators import DuplicateAccount, MinimumAge
 from mentor_finder.models.faculty import Faculty
-from mentor_finder.tests.utilities import create_example_mentor
+from mentor_finder.tests.util import create_example_mentor
 
 
 class TestDuplicateAccountValidator(FlaskTestCase):

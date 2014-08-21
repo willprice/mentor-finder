@@ -2,12 +2,12 @@
 from jinja2 import Environment, FileSystemLoader
 
 from mentor_finder.tests.template_testcase import TemplateTestCase
-from mentor_finder.tests.utilities import create_example_mentor
+from mentor_finder.tests.util import create_example_mentor
 
 
 class TestActivationEmail(TemplateTestCase):
     env = Environment(loader=FileSystemLoader('mentor_finder/templates'))
-    template = env.get_template('email/activation.jinja2')
+    template = env.get_template('email/activation.txt.jinja2')
 
     def setUp(self):
         self.user = create_example_mentor()

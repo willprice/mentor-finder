@@ -2,19 +2,28 @@
 import unittest
 from mentor_finder.models.errors import MentorAlreadyExistsError
 from mentor_finder.models.faculty import Faculty
-from utilities import create_example_mentor
+from mentor_finder.tests.util import create_example_mentor
+import itsdangerous
 
 
 class TestFaculty(unittest.TestCase):
     def setUp(self):
         self.faculty = Faculty()
         self.mentor = create_example_mentor()
-
-    def test_adding_already_present_mentor_throws_exception(self):
         self.faculty.add(self.mentor)
-        self.assertRaises(MentorAlreadyExistsError, lambda : self.faculty.add(self.mentor))
+
+    def test_existing_mentor_exists_in_faculty(self):
+        self.assertTrue(self.faculty.exists(self.mentor))
 
     def test_mentors_with_same_credentials_but_email_can_coexist(self):
         another_mentor = create_example_mentor(email="willprice94@gmail.com")
-        self.faculty.add(self.mentor)
         self.faculty.add(another_mentor)
+
+    def test_activate_mentor(self):
+        key = "secret_key"
+
+        serializer = itsdangerous.URLSafeSerializer(key)
+        token = serializer.dumps(self.mentor.email)
+        self.faculty.activate_mentor(token, key)
+
+        self.assertTrue(self.mentor.activated)

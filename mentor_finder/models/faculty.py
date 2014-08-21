@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from mentor_finder.models.errors import MentorAlreadyExistsError
+import itsdangerous
 
 
 class Faculty(object):
@@ -14,11 +14,21 @@ class Faculty(object):
 
     def add(self, mentor):
         if mentor in self.mentors:
-            raise MentorAlreadyExistsError
+            return False
         self.mentors.append(mentor)
+        return True
 
     def get_mentor(self, email):
         for mentor in self.mentors:
             if mentor.email == email:
                 return mentor
         return None
+
+    def activate_mentor(self, token, key):
+        serializer = itsdangerous.URLSafeSerializer(key)
+        email = serializer.loads(token)
+        mentor = self.get_mentor(email)
+        mentor.activate()
+
+    def exists(self, mentor):
+        return mentor in self.mentors

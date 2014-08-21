@@ -3,7 +3,7 @@ import unittest
 from nose_parameterized import parameterized
 from jinja2 import Environment, FileSystemLoader
 
-import mentor_finder.tests.utilities as utilities
+import mentor_finder.tests.util as utilities
 from mentor_finder.tests.template_testcase import TemplateTestCase
 
 import lxml.html

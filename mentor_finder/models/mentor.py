@@ -27,3 +27,6 @@ class Mentor(object):
         if type(other) == Mentor:
             return self.email == other.email
         return False
+
+    def activate(self):
+        self.activated = True

@@ -25,9 +25,9 @@ class MentorFinderViews(Blueprint):
     def mentor_signup(self, **kwargs):
         def _mentor_signup(form):
             return render_template('mentor_signup.html', form=form, **kwargs)
+
         MentorSignupForm = mentor_signup_form_factory(
             self.controller.faculty)
-
         form = MentorSignupForm()
 
         if request.method == 'POST':

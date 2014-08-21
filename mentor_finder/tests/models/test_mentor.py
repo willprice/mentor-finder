@@ -6,8 +6,8 @@ from mock import Mock
 from mock import patch
 from nose_parameterized import parameterized
 
-import mentor_finder.tests.utilities as utilities
-from mentor_finder.tests.utilities import FakeDatetime
+import mentor_finder.tests.util as utilities
+from mentor_finder.tests.util import FakeDatetime
 
 
 class TestMentorModel(unittest.TestCase):
