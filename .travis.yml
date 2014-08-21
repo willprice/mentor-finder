@@ -2,13 +2,17 @@ language: python
 python:
 - '2.7'
 install:
-    - make install_deps
-    - make install_dev_deps
+- make install_deps
+- make install_dev_deps
 script:
-    - make test
+- make test
 after_success:
-    - coveralls
+- coveralls
 deploy:
   provider: heroku
   api_key:
     secure: aL4uDrsLzQmNzAi+HtH8bxLzVIq7uSUaJxXvOiM8KZVN8oIhrSfPqB5j/vUd3mm0+zaGg9xdxU5QHvAJBK1hVBVjLj5Cq7fWQZQ6fEkV1GlLJoSBFcKq7PBUeF6Tw9bmY3NDjIEKqzTSaBKNOiylap+Ju81R0sAZVgSKTsPENDM=
+env:
+  global:
+  - secure: IHeUdAotZitThFStL/0pRH901rY9ebzHekcSFq/dlcKI3oLooxPyoonqzBaCiJXmQPEE47Ux8Jbl1UAzb7MU/4GoQJVUT/DZXidtQmRdw4HGo1cytYf4QlQJwDQjZfq6ZtoEVDgQ1JRIi03j1Lnh2MjyvWDpFbkRDIgxiG+/50o=
+  - secure: J+pahoASg+kTsEePdvJ8ZrAi+Ae+TgAISU3I13/UM1/lmELW6VbdBi0/faKaLwwbB9w3u2ncXsXFw3bt9xzv1RjI3WLI8IXhVjCAhJ77z5AA6kIfGiKReX+uCbOVB8/5HOAd/w4baMmCJxVls1+96Ksm0lzJfmLLGe/g+1Ewmds=
