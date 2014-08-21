@@ -10,16 +10,13 @@ from mentor_finder.tests.flask_testcase import FlaskTestCase
 from mentor_finder.models.mentor import Mentor
 
 
-@unittest.skip('Broken because mentor_finders controller seems to have a reference to the wrong faculty')
 class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
     def setUp(self):
-        FlaskTestCase.__init__(self)
         LiveServerTestCase.__init__(self)
 
     def create_app(self):
         app = FlaskTestCase.create_app(self)
-        app.config['DEBUG'] = False
-        app.config['LIVESERVER_PORT'] = 8943
+        app.config['LIVESERVER_PORT'] = 8111
         return app
 
     def setUp(self):
@@ -55,9 +52,8 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
         driver.find_element_by_id("linkedin").send_keys(u"http://uk.linkedin.com/pub/will-price/7b/579/aba/")
         driver.find_element_by_id("github_id").send_keys(u"willprice")
         driver.find_element_by_css_selector("input[type='submit']").click()
-        print "Mentors: "
-        print str(mentor_finder.controller.faculty)
-        self.assertIsInstance(mentor_finder.controller.faculty.get_mentor(email_address), Mentor)
+        email = driver.find_element_by_class_name("email")
+        self.assertEqual(email_address, email.text)
 
 
     def is_element_present(self, how, what):
