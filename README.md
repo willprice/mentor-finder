@@ -5,7 +5,6 @@
 [![Stories in Ready](https://badge.waffle.io/willprice/mentor-finder.png?label=ready&title=Ready)](http://waffle.io/willprice/mentor-finder)
 [![Travis build status](https://travis-ci.org/willprice/mentor-finder.svg?branch=master)](https://travis-ci.org/willprice/mentor-finder)
 [![Coverage Status](https://img.shields.io/coveralls/willprice/mentor-finder.svg)](https://coveralls.io/r/willprice/mentor-finder?branch=master)
-
 [![Sauce Test Status](https://saucelabs.com/buildstatus/willprice94)](https://saucelabs.com/u/willprice94)
 
 
