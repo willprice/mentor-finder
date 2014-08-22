@@ -65,7 +65,8 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
             self.driver = webdriver.Firefox()
             self.using_sauce = False
 
-        self.base_url = "http://0.0.0.0:%s" % self.app.config['LIVESERVER_PORT']
+        self.base_url = "http://localhost:%s" % self.app.config[
+            'LIVESERVER_PORT']
         self.driver.implicitly_wait(30)
         self.verificationErrors = []
         self.accept_next_alert = True
