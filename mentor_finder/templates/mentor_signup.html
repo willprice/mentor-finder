@@ -44,7 +44,7 @@
             {{ form.github_id.label }} {{ form.github_id(placeholder="my_github_id") }}
         </fieldset>
         <input type="submit" value="Submit">
-        <input type="submit" value="Cancel" onClick="window.open('/', '_self')">
+        <button id="cancel" onclick="window.open('/',  '_self'); return false;">Cancel</button>
     </form>
     <script type="text/javascript">
     </script>
