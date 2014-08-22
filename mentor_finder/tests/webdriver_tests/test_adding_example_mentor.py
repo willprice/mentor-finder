@@ -36,7 +36,6 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
             self.desired_capabilities['name'] = self.id()
             sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
             self.driver = webdriver.Remote(
-                tunnel_identifier=sauce_config.tunnel_identifier,
                 desired_capabilities=self.desired_capabilities,
                 command_executor=sauce_url % (
                     sauce_config.username,
