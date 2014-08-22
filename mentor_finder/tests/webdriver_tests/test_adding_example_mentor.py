@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
+import multiprocessing
+import time
+
 
 from flask.ext.testing import LiveServerTestCase
 from selenium import webdriver
@@ -23,12 +26,27 @@ sauce_config = SauceConfig()
 
 @on_platforms(sauce_config, browsers)
 class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
+    def _spawn_live_server(self):
+        self._process = None
+        self.port = self.app.config.get('LIVESERVER_PORT', 5000)
+
+        worker = lambda app, port: app.run(port=port, host='0.0.0.0')
+
+        self._process = multiprocessing.Process(
+            target=worker, args=(self.app, self.port)
+        )
+
+        self._process.start()
+
+        # we must wait the server start listening
+        time.sleep(1)
+
     def setUp(self):
         LiveServerTestCase.__init__(self)
 
     def create_app(self):
         app = FlaskTestCase.create_app(self)
-        app.config['LIVESERVER_PORT'] = 8111
+        app.config['LIVESERVER_PORT'] = 3000
         return app
 
     def setUp(self):
@@ -47,7 +65,7 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
             self.driver = webdriver.Firefox()
             self.using_sauce = False
 
-        self.base_url = "http://localhost:%s" % self.app.config['LIVESERVER_PORT']
+        self.base_url = "http://0.0.0.0:%s" % self.app.config['LIVESERVER_PORT']
         self.driver.implicitly_wait(30)
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -64,7 +82,7 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
         email = driver.find_element_by_class_name("email")
         self.assertEqual(email_address, email.text)
 
-    def test_cancelling_submition(self):
+    def test_cancelling_submission(self):
         email_address = u"will.price94@gmail.com"
 
         driver = self.driver
