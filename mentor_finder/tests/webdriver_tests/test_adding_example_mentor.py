@@ -33,20 +33,22 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
 
     def setUp(self):
         if sauce_config.can_use_sauce():
+            self.desired_capabilities['name'] = self.id()
             sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
             self.driver = webdriver.Remote(
+                tunnel_identifier=sauce_config.tunnel_identifier,
                 desired_capabilities=self.desired_capabilities,
                 command_executor=sauce_url % (
                     sauce_config.username,
                     sauce_config.access_key
-                )
+                ),
             )
             self.using_sauce = True
         else:
             self.driver = webdriver.Firefox()
-            self.base_url = "http://localhost:%s" % self.app.config['LIVESERVER_PORT']
             self.using_sauce = False
 
+        self.base_url = "http://localhost:%s" % self.app.config['LIVESERVER_PORT']
         self.driver.implicitly_wait(30)
         self.verificationErrors = []
         self.accept_next_alert = True

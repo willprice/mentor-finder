@@ -10,15 +10,19 @@ class SauceConfig(object):
     def __init__(self):
         self.username = self.get_username()
         self.access_key = self.get_access_key()
+        self.tunnel_identifier = self.get_tunnel_identifier()
+
         if self.can_use_sauce():
             self.sauce = sauceclient.SauceClient(self.username,
                                                  self.access_key)
         else:
             self.sauce = None
 
+    def get_tunnel_identifier(self):
+        return os.getenv('TRAVIS_JOB_NUMBER')
+
     def get_username(self):
         return os.getenv('SAUCE_USERNAME')
-
 
     def get_access_key(self):
         return os.getenv('SAUCE_ACCESS_KEY')
