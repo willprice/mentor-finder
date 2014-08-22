@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
-import new
 import unittest
 
 from flask.ext.testing import LiveServerTestCase
@@ -58,30 +55,62 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
         email_address = u"will.price94@gmail.com"
 
         driver = self.driver
-        driver.get(self.base_url + "/")
-        driver.find_element_by_css_selector("a > div.enter_button").click()
-        driver.find_element_by_css_selector("label").click()
-        driver.find_element_by_id("email").send_keys(email_address)
-        driver.find_element_by_id("password").send_keys(u"apprentice")
-        driver.find_element_by_id("password_confirmation").send_keys(u"apprentice")
-        driver.find_element_by_id("first_name").send_keys(u"Will")
-        driver.find_element_by_id("last_name").send_keys(u"Price")
-        Select(driver.find_element_by_id("county")).select_by_visible_text(u"Herefordshire")
-        driver.find_element_by_css_selector("button.ws-popover-opener").click()
-        driver.find_element_by_css_selector("button.ws-prev").click()
-        driver.find_element_by_css_selector(".ws-item-1 button").click()
-        driver.find_element_by_css_selector(".ws-item-1 button").click()
-        driver.find_element_by_css_selector("button.day-1.ws-focus").click()
-        driver.find_element_by_id("description") \
-            .send_keys(u"Hi, I'm an aspiring software developer who would love to mentor people")
-        driver.find_element_by_id("keywords").send_keys(u"XP,eXtreme Programming,TDD,Test driven development,Refactoring,COBOL")
-        driver.find_element_by_id("personal_site").send_keys(u"http://willprice.org")
-        driver.find_element_by_id("twitter_id").send_keys(u"will_price_94")
-        driver.find_element_by_id("linkedin").send_keys(u"http://uk.linkedin.com/pub/will-price/7b/579/aba/")
-        driver.find_element_by_id("github_id").send_keys(u"willprice")
+        self.visit_landing_page(driver)
+        self.landing_page_to_mentor_signup(driver)
+        self.fill_mentor_signup_form_with_valid_details(driver,
+                                                        email_address)
         driver.find_element_by_css_selector("input[type='submit']").click()
         email = driver.find_element_by_class_name("email")
         self.assertEqual(email_address, email.text)
+
+    def test_cancelling_submition(self):
+        email_address = u"will.price94@gmail.com"
+
+        driver = self.driver
+        driver.get(self.base_url + "/")
+        self.landing_page_to_mentor_signup(driver)
+        self.fill_mentor_signup_form_with_valid_details(driver,
+                                                        email_address)
+        driver.find_element_by_id("cancel").click()
+        self.assertTrue(driver.find_element_by_id("landing"))
+
+    def visit_landing_page(self, driver):
+        driver.get(self.base_url + "/")
+
+    def landing_page_to_mentor_signup(self, driver):
+        driver.find_element_by_css_selector(
+            "a > div.enter_button").click()
+
+    def fill_mentor_signup_form_with_valid_details(self, driver,
+                                                   email_address):
+        driver.find_element_by_id("email").send_keys(email_address)
+        driver.find_element_by_id("password").send_keys(u"apprentice")
+        driver.find_element_by_id("password_confirmation").send_keys(
+            u"apprentice")
+        driver.find_element_by_id("first_name").send_keys(u"Will")
+        driver.find_element_by_id("last_name").send_keys(u"Price")
+        Select(
+            driver.find_element_by_id("county")).select_by_visible_text(
+            u"Herefordshire")
+        driver.find_element_by_css_selector(
+            "button.ws-popover-opener").click()
+        driver.find_element_by_css_selector("button.ws-prev").click()
+        driver.find_element_by_css_selector(".ws-item-1 button").click()
+        driver.find_element_by_css_selector(".ws-item-1 button").click()
+        driver.find_element_by_css_selector(
+            "button.day-1.ws-focus").click()
+        driver.find_element_by_id("description") \
+            .send_keys(
+            u"Hi, I'm an aspiring software developer who would love to mentor people")
+        driver.find_element_by_id("keywords").send_keys(
+            u"XP,eXtreme Programming,TDD,Test driven development,Refactoring,COBOL")
+        driver.find_element_by_id("personal_site").send_keys(
+            u"http://willprice.org")
+        driver.find_element_by_id("twitter_id").send_keys(
+            u"will_price_94")
+        driver.find_element_by_id("linkedin").send_keys(
+            u"http://uk.linkedin.com/pub/will-price/7b/579/aba/")
+        driver.find_element_by_id("github_id").send_keys(u"willprice")
 
     def tearDown(self):
         self.driver.quit()
