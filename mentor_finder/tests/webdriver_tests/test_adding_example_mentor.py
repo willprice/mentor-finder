@@ -23,9 +23,12 @@ browsers = [{"platform": "Mac OS X 10.9",
              "browserName": "internet explorer",
              "version": "11"}]
 
-identifier = os.environ.get('TRAVIS_JOB_NUMBER')
 for browser in browsers:
-    browser['tunnel-identifier'] = identifier
+    browser['name'] = "Testing MentorFinder"
+    browser['tunnel-identifier'] = os.environ.get('TRAVIS_JOB_NUMBER')
+    browser['tags'] = [os.environ.get('TRAVIS_PYTHON_VERSION'), 'CI']
+    browser['build'] = os.environ.get('TRAVIS_BUILD_NUMBER')
+
 sauce_config = SauceConfig()
 
 
@@ -57,7 +60,7 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
     def setUp(self):
         if sauce_config.can_use_sauce():
             self.desired_capabilities['name'] = self.id()
-            sauce_url = "http://%s:%s@localhost:4445"
+            sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
             self.driver = webdriver.Remote(
                 desired_capabilities=self.desired_capabilities,
                 command_executor=sauce_url % (
