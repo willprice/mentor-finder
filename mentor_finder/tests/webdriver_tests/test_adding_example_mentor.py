@@ -37,8 +37,8 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
             self.driver = webdriver.Remote(
                 desired_capabilities=self.desired_capabilities,
                 command_executor=sauce_url % (
-                    self.sauce_config.username,
-                    self.sauce_config.access_key
+                    sauce_config.username,
+                    sauce_config.access_key
                 )
             )
             self.using_sauce = True
