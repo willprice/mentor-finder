@@ -22,6 +22,10 @@ browsers = [{"platform": "Mac OS X 10.9",
             {"platform": "Windows 8.1",
              "browserName": "internet explorer",
              "version": "11"}]
+
+identifier = os.environ.get('TRAVIS_JOB_NUMBER')
+for browser in browsers:
+    browser['tunnel-identifier'] = identifier
 sauce_config = SauceConfig()
 
 
@@ -52,9 +56,6 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
 
     def setUp(self):
         if sauce_config.can_use_sauce():
-            self.caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
-            self.caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
-            self.caps['tags'] = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
             self.desired_capabilities['name'] = self.id()
             sauce_url = "http://%s:%s@localhost:4445"
             self.driver = webdriver.Remote(
