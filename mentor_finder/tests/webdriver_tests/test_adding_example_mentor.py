@@ -2,6 +2,7 @@
 import unittest
 import multiprocessing
 import time
+import os
 
 
 from flask.ext.testing import LiveServerTestCase
@@ -28,7 +29,7 @@ sauce_config = SauceConfig()
 class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
     def _spawn_live_server(self):
         self._process = None
-        self.port = self.app.config.get('LIVESERVER_PORT', 5000)
+        self.port = self.app.config.get('LIVESERVER_PORT', 4445)
 
         worker = lambda app, port: app.run(port=port, host='0.0.0.0')
 
@@ -51,8 +52,11 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
 
     def setUp(self):
         if sauce_config.can_use_sauce():
+            self.caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
+            self.caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
+            self.caps['tags'] = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
             self.desired_capabilities['name'] = self.id()
-            sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
+            sauce_url = "http://%s:%s@localhost:4445"
             self.driver = webdriver.Remote(
                 desired_capabilities=self.desired_capabilities,
                 command_executor=sauce_url % (
