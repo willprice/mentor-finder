@@ -16,6 +16,10 @@ def run():
     mentor_finder.wsgi.app.run(debug=True)
 
 @manager.command
+def test():
+    subprocess.call(["nosetests"] + NOSE_ARGS)
+
+@manager.command
 def unittest():
    subprocess.call(["nosetests"] +
                    NOSE_ARGS +

@@ -4,13 +4,9 @@ JS_DIR=mentor_finder/static/js/mentor_finder/
 
 test: python-test js-test
 
-python-test: unit-tests functional-tests
+python-test:
+	./manage.py test
 
-unit-tests:
-	python manage.py unittest
-
-functional-tests:
-	python manage.py functionaltest
 
 js-test:
 	$(MAKE) -C $(JS_DIR) test
