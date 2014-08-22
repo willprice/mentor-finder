@@ -13,7 +13,8 @@ manager = Manager(mentor_finder.wsgi.app)
 
 @manager.command
 def run():
-    mentor_finder.wsgi.app.run(debug=True)
+    mentor_finder.wsgi.app.run(debug=True,
+                               host='0.0.0.0')
 
 @manager.command
 def test():
