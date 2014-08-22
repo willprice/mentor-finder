@@ -1,15 +1,30 @@
 # -*- coding: utf-8 -*-
+import os
+import sys
+import new
+import unittest
+
 from flask.ext.testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
-import unittest
 
-import mentor_finder
 from mentor_finder.tests.flask_testcase import FlaskTestCase
-from mentor_finder.models.mentor import Mentor
+from mentor_finder.tests.sauce_config import SauceConfig, on_platforms
 
 
+browsers = [{"platform": "Mac OS X 10.9",
+             "browserName": "chrome",
+             "version": "31"},
+            {"platform": "Linux",
+             "browserName": "firefox",
+             "version": "31"},
+            {"platform": "Windows 8.1",
+             "browserName": "internet explorer",
+             "version": "11"}]
+sauce_config = SauceConfig()
+
+
+@on_platforms(sauce_config, browsers)
 class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
     def setUp(self):
         LiveServerTestCase.__init__(self)
@@ -20,9 +35,22 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
         return app
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        if sauce_config.can_use_sauce():
+            sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
+            self.driver = webdriver.Remote(
+                desired_capabilities=self.desired_capabilities,
+                command_executor=sauce_url % (
+                    self.sauce_config.username,
+                    self.sauce_config.access_key
+                )
+            )
+            self.using_sauce = True
+        else:
+            self.driver = webdriver.Firefox()
+            self.base_url = "http://localhost:%s" % self.app.config['LIVESERVER_PORT']
+            self.using_sauce = False
+
         self.driver.implicitly_wait(30)
-        self.base_url = "http://localhost:%s" % self.app.config['LIVESERVER_PORT']
         self.verificationErrors = []
         self.accept_next_alert = True
 
@@ -54,33 +82,6 @@ class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
         driver.find_element_by_css_selector("input[type='submit']").click()
         email = driver.find_element_by_class_name("email")
         self.assertEqual(email_address, email.text)
-
-
-    def is_element_present(self, how, what):
-        try:
-            self.driver.find_element(by=how, value=what)
-        except NoSuchElementException:
-            return False
-        return True
-
-    def is_alert_present(self):
-        try:
-            self.driver.switch_to.alert()
-        except NoAlertPresentException:
-            return False
-        return True
-
-    def close_alert_and_get_its_text(self):
-        try:
-            alert = self.driver.switch_to.alert()
-            alert_text = alert.text
-            if self.accept_next_alert:
-                alert.accept()
-            else:
-                alert.dismiss()
-            return alert_text
-        finally:
-            self.accept_next_alert = True
 
     def tearDown(self):
         self.driver.quit()
