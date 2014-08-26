@@ -5,7 +5,6 @@ from jinja2 import FileSystemLoader, Environment
 
 
 class ActivationMessage(Message):
-
     def __init__(self, mentor, secret_key):
         self.mentor = mentor
         self.secret_key = secret_key

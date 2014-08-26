@@ -35,8 +35,9 @@ class MentorFinderViews(Blueprint):
                 .process_mentor_form(form, request.form,
                                      lambda mentor:
                                      self.mentor_listings(
-                                         current=mentor),
-                                     lambda : _mentor_signup(form))
+                                         current=mentor
+                                     ),
+                                     lambda: _mentor_signup(form))
         else:
             return _mentor_signup(form)
 

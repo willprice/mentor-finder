@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from mentor_finder.config import Config
 from mentor_finder.models.faculty import Faculty
 from mentor_finder.models.mentor_parser import MentorFieldParser
 from mentor_finder.models.mailers import Mailer
+from mentor_finder.models.message import ActivationMessage
+from mentor_finder.sensitive import mail_config
+
 from mentor_finder.util import flash_errors
 
 def default_error_reporter(form):
@@ -14,13 +18,13 @@ class Controller(object):
     #  `None` as a default and then setting the fields
     def __init__(self, app=None,
                  faculty=None,
-                 activation_mailer=None,
+                 mailer=None,
                  error_reporter=default_error_reporter):
         if not faculty:
             faculty = Faculty()
-        if not activation_mailer:
-            activation_mailer = Mailer()
-        self.activation_mailer = activation_mailer
+        if not mailer:
+            mailer = Mailer()
+        self.mailer = mailer
         self.faculty = faculty
         self.error_reporter = error_reporter
         self.app = app
@@ -29,7 +33,9 @@ class Controller(object):
         mentor = MentorFieldParser(mentor_dict).get_mentor()
         if self.faculty.add(mentor):
             print "Adding mentor: " + mentor.email
-            self.activation_mailer.send(mentor.email)
+            config = Config()
+            message = ActivationMessage(mentor, config.config['secret_key'])
+            self.mailer.send(message)
             return mentor
         else:
             return False
