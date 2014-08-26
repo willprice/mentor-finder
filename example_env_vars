@@ -1,0 +1,8 @@
+# Export all of these
+export APP_SECRET_KEY="omg, so secret!"
+export MAIL_HOST="smtp.gmail.com"
+export MAIL_PORT=587
+export MAIL_USERNAME="email@gmail.com"
+export MAIL_PASSWORD="email_password"
+export MAIL_TLS="required"
+export MAIL_USE="smtp"

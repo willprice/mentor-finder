@@ -5,7 +5,6 @@ from mentor_finder.models.faculty import Faculty
 from mentor_finder.models.mentor_parser import MentorFieldParser
 from mentor_finder.models.mailers import Mailer
 from mentor_finder.models.message import ActivationMessage
-from mentor_finder.sensitive import mail_config
 
 from mentor_finder.util import flash_errors
 
