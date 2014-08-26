@@ -2,17 +2,19 @@
 from itsdangerous import URLSafeSerializer
 from marrow.mailer import Message
 from jinja2 import FileSystemLoader, Environment
+from mentor_finder.config import Config
 
 
 class ActivationMessage(Message):
     def __init__(self, mentor, secret_key):
+        super(ActivationMessage, self).__init__()
         self.mentor = mentor
         self.secret_key = secret_key
 
-        super(ActivationMessage, self).__init__(to=mentor.email)
-
-        self.token = self.generate_token()
+        self.subject = "MentorFinder signup"
         self.plain = self.generate_body_text(mentor)
+        self.to = mentor.email
+        self.author = Config().config['mail']['username']
 
     def generate_token(self):
         signer = URLSafeSerializer(self.secret_key)
@@ -22,5 +24,5 @@ class ActivationMessage(Message):
         env = Environment(loader=FileSystemLoader(
             'mentor_finder/templates/email'))
         template = env.get_template('activation.txt.jinja2')
-        return template.render(activation_url=self.token,
-                                     user=mentor)
+        return template.render(activation_url=self.generate_token(),
+                               user=mentor)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from marrow.mailer import Mailer as MarrowMailer
+import time
 from mentor_finder.config import Config
 
 
@@ -8,10 +9,11 @@ class Mailer(object):
         self.config = Config().config['mail']
         self.mailer = MarrowMailer(
             dict(
-                transport=dict(debug=True).update(self.config),
+                transport=dict(debug=True,
+                               **self.config),
                 manager=dict(),
-            ),
-        )
+                ),
+            )
 
     def send(self, message):
         self.mailer.start()

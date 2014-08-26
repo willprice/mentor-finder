@@ -8,6 +8,7 @@ class Config(object):
         self.config = dict()
         self.config ['secret_key'] = self._get_secret_key()
         self.config['mail'] = self._get_mail_config()
+        self.config['mail']['port'] = int(self.config['mail']['port'])
 
     def _get_mail_config(self):
         prefix = 'MAIL_'

@@ -33,8 +33,7 @@ class MentorFinderViews(Blueprint):
         if request.method == 'POST':
             return self.controller \
                 .process_mentor_form(form, request.form,
-                                     lambda mentor:
-                                     self.mentor_listings(
+                                     lambda mentor: self.mentor_listings(
                                          current=mentor
                                      ),
                                      lambda: _mentor_signup(form))
