@@ -1,9 +1,12 @@
 language: python
+cache:
+    directories:
+        - "${HOME}/.pip-cache"
 python:
     - '2.7'
 install:
     - make install_deps
-- make install_dev_deps
+    - make install_dev_deps
 script:
     - source example_env_vars
     - make test

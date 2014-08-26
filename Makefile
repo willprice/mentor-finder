@@ -12,7 +12,7 @@ js-test:
 	$(MAKE) -C $(JS_DIR) test
 
 install_deps:
-	pip install -r requirements.txt
+	pip install -r requirements.txt --download-cache "${HOME}/.pip-cache"
 	$(MAKE) -C $(JS_DIR) install_dependencies
 
 install_dev_deps: install_deps
