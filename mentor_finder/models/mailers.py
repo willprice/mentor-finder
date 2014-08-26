@@ -8,7 +8,7 @@ class Mailer(object):
         self.config = Config().config['mail']
         self.mailer = MarrowMailer(
             dict(
-                transport=self.config,
+                transport=dict(debug=True).update(self.config),
                 manager=dict(),
             ),
         )
