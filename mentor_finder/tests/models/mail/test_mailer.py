@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import unittest
+
 from mock import patch, Mock
 
 from mentor_finder.config import Config
-from mentor_finder.models.mailers import Mailer
-from mentor_finder.models.message import Message
+from mentor_finder.models.mail.mailers import Mailer
+from mentor_finder.models.mail.message import Message
 
 
 class TestMailer(unittest.TestCase):
-    @patch('mentor_finder.models.mailers.MarrowMailer')
+    @patch('mentor_finder.models.mail.mailers.MarrowMailer')
     def test_send(self, marrow_mailer):
         marrow_mailer_instance = Mock()
         marrow_mailer.return_value = marrow_mailer_instance
@@ -26,4 +27,3 @@ class TestMailer(unittest.TestCase):
         config = Config().config
         mailer = Mailer()
         self.assertEqual(config['mail']['username'], mailer.config['username'])
-

@@ -2,22 +2,27 @@
 JS_DIR=mentor_finder/static/js/mentor_finder/
 
 
-test: python-test js-test
+.PHONY: test
+test: python_test js_test
 
-python-test:
+.PHONY: python_test
+python_test:
 	./manage.py test
 
-
-js-test:
+.PHONY: js_test
+js_test:
 	$(MAKE) -C $(JS_DIR) test
 
+.PHONY: install_deps
 install_deps:
 	pip install -r requirements.txt --download-cache "${HOME}/.pip-cache"
 	$(MAKE) -C $(JS_DIR) install_dependencies
 
+.PHONY: install_dev_deps
 install_dev_deps: install_deps
 	pip install coveralls
 
+.PHONY: build
 build: clean_build
 	mkdir build
 	# Copy source, without tests
@@ -32,19 +37,21 @@ build: clean_build
 	./build/mentor_finder/virtualenv/bin/python ./build/setup.py install
 	# Remove any *.pyc *.pyo files
 	find build -iname '*.pyc' -o -iname '*.pyo' -exec rm {} +
-	# Build a debian package
+
+.PHONY: build_deb
+build_deb: build
 	fpm -s dir -t deb -n mentor-finder -v 0.1 -d "python" -d "python-dev" -C ./build \
 		--prefix /home/mentor_finder mentor_finder
 
+.PHONY: build_rpm
+build_rpm: build
+	fpm -s dir -t rpm -n mentor-finder -v 0.1 -d "python" -d "python-dev" -C ./build \
+		--prefix /home/mentor_finder mentor_finder
+
+.PHONY: build_all
+build_all: build_rpm build_deb
+
+.PHONY: clean_build
 clean_build:
 	-rm -rf ./build
 	-rm mentor-finder*.deb
-
-.PHONY: test \
-	python-test \
-	js-test \
-	functional-tests \
-	unit-tests \
-	install_dependencies \
-	build \
-	clean_build

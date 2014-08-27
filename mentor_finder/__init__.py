@@ -6,14 +6,14 @@ from mentor_finder.config import Config
 import mentor_finder.views
 from mentor_finder.views.mentor_finder_views import MentorFinderViews
 from mentor_finder.controller import Controller
-from mentor_finder.models.mailers import StubMailer, Mailer
+from mentor_finder.models.mail.mailers import StubMailer, Mailer
 
 
 class MentorFinder(object):
-    def __init__(self, secret_key="Super secret key", test=False):
-        self.config = Config()
+    def __init__(self, test=False):
+        self.config = Config().config
         self.app = Flask(__name__)
-        self.app.secret_key = secret_key
+        self.app.secret_key = self.config['secret_key']
 
         if test:
             self.app.config['TESTING'] = True

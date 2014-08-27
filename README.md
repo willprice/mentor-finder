@@ -23,20 +23,23 @@ $ source .virtualenv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-Now you need to create a python module with the secret keys:
+MentorFinder is configured via environmental variables, 
+create a file with these then source them before running
 ```sh
-   # Still inside mentor-finder
-$ mkdir mentor_finder/sensitive/
-$ touch mentor_finder/sensitive/{__init__,passes}.py
-$ cat > mentor_finder/sensitive/passes.py <<EOF
-def add_sensitive_information_to_app(app):
-    app.config.update(
-        SECRET_KEY='super_secret_key',
-        MAIL_USERNAME='example@gmail.com',
-        MAIL_PASSWORD='example_password'
-    )
+$ cat > configuration.sh <<EOF
+# Export all of these
+export APP_URL="http://localhost"
+export APP_SECRET_KEY="lkasjasjdfiio234kjh2j2387dy72hg398"
+export MAIL_HOST="smtp.gmail.com"
+export MAIL_PORT=465
+export MAIL_USERNAME="email@gmail.com"
+export MAIL_PASSWORD="email_password"
+export MAIL_TLS="ssl"
+export MAIL_USE="smtp"
 EOF
 ```
+An example is provided in `example_env_vars` that you can copy and modify for
+ your own use
 
 Now you should be able to run the application with `./manage.py run`
 

@@ -6,7 +6,7 @@ from mentor_finder.config import Config
 
 
 class ActivationMessage(Message):
-    def __init__(self, mentor, secret_key):
+    def __init__(self, mentor, secret_key=Config().config['secret_key']):
         super(ActivationMessage, self).__init__()
         self.mentor = mentor
         self.secret_key = secret_key
@@ -24,5 +24,9 @@ class ActivationMessage(Message):
         env = Environment(loader=FileSystemLoader(
             'mentor_finder/templates/email'))
         template = env.get_template('activation.txt.jinja2')
-        return template.render(activation_url=self.generate_token(),
+        url = "{url}/users/activate/{token}".format(
+            url=Config().config['url'],
+            token=self.generate_token()
+        )
+        return template.render(activation_url=url,
                                user=mentor)

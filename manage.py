@@ -8,8 +8,9 @@ NOSE_ARGS = ['--exe',
              '--cover-branches'
              ]
 
-import mentor_finder.wsgi
-manager = Manager(mentor_finder.wsgi.app)
+import mentor_finder
+finder = mentor_finder.MentorFinder()
+manager = Manager(finder.app)
 
 @manager.command
 def run():

@@ -3,8 +3,8 @@
 from mentor_finder.config import Config
 from mentor_finder.models.faculty import Faculty
 from mentor_finder.models.mentor_parser import MentorFieldParser
-from mentor_finder.models.mailers import Mailer
-from mentor_finder.models.message import ActivationMessage
+from mentor_finder.models.mail.mailers import Mailer
+from mentor_finder.models.mail.message import ActivationMessage
 
 from mentor_finder.util import flash_errors
 
@@ -50,6 +50,6 @@ class Controller(object):
             self.error_reporter(form)
             return fail_fn()
 
-    def activate_mentor(self, key):
-        self.faculty.activate_mentor(key)
+    def activate_mentor(self, token):
+        self.faculty.activate_mentor(token, Config().config['secret_key'])
 
