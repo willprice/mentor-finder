@@ -6,4 +6,5 @@
 __pycache__
 mentor_finder/sensitive
 .coverage
+secret_env_vars
 **.log
