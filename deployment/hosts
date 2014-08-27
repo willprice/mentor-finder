@@ -1,2 +1,5 @@
 [test-servers]
 rpi-server
+
+[vagrant]
+localhost:2222

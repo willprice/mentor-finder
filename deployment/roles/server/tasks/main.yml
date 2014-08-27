@@ -58,10 +58,10 @@
   service: name=apache2 state=started enabled=yes
 
 - name: Clone mentor-finder application
-  git: repo=https://github.com/willprice/apprentice-website.git
-       dest=/var/www/mentor-finder
-       depth=1
-       version=develop
+  git: repo="https://github.com/willprice/mentor-finder.git"
+            dest=/var/www/mentor-finder
+            depth=1
+            version=develop
   notify: Restart apache
 
 - name: Clone mentor-finder-sensitive application
