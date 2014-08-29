@@ -3,20 +3,15 @@ JS_DIR=mentor_finder/static/js/mentor_finder/
 
 
 .PHONY: test
-test: python_test js_test
+test: python_test
 
 .PHONY: python_test
 python_test:
 	./manage.py test
 
-.PHONY: js_test
-js_test:
-	$(MAKE) -C $(JS_DIR) test
-
 .PHONY: install_deps
 install_deps:
 	pip install -r requirements.txt --download-cache "${HOME}/.pip-cache"
-	$(MAKE) -C $(JS_DIR) install_dependencies
 
 .PHONY: install_dev_deps
 install_dev_deps: install_deps

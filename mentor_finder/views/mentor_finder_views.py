@@ -1,12 +1,17 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, url_for
 from mentor_finder.views import mentor_signup_form_factory
 
 
 class MentorFinderViews(Blueprint):
-    def __init__(self, controller):
+    def __init__(self, controller, static_files=False):
         Blueprint.__init__(self, 'MentorFinderViews', __name__)
         self.controller = controller
         self.add_url_rules()
+        if static_files:
+            self.add_static_files()
+
+    def add_static_files(self):
+        pass
 
     def add_url_rules(self):
         self.add_url_rule('/', 'landing_page', self.landing_page)

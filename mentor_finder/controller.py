@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from mentor_finder.config import Config
-from mentor_finder.models.faculty import Faculty
+from mentor_finder.models.faculty_repository import PersistentFacultyRepository
 from mentor_finder.models.mentor_parser import MentorFieldParser
 from mentor_finder.models.mail.mailers import Mailer
 from mentor_finder.models.mail.message import ActivationMessage
@@ -15,29 +15,24 @@ def default_error_reporter(form):
 class Controller(object):
     # Default objects are shared between invocations hence the use of
     #  `None` as a default and then setting the fields
-    def __init__(self, app=None,
-                 faculty=None,
+    def __init__(self,
                  mailer=None,
-                 error_reporter=default_error_reporter):
-        if not faculty:
-            faculty = Faculty()
+                 error_reporter=default_error_reporter,
+                 repository=PersistentFacultyRepository()):
+        self.faculty_repository = repository
         if not mailer:
             mailer = Mailer()
         self.mailer = mailer
-        self.faculty = faculty
         self.error_reporter = error_reporter
-        self.app = app
 
     def add_mentor(self, mentor_dict):
         mentor = MentorFieldParser(mentor_dict).get_mentor()
-        if self.faculty.add(mentor):
-            print "Adding mentor: " + mentor.email
-            config = Config()
-            message = ActivationMessage(mentor, config.config['secret_key'])
+        if self.faculty_repository.insert_mentor(mentor):
+            message = ActivationMessage(mentor, Config().config['secret_key'])
             self.mailer.send(message)
             return mentor
         else:
-            return False
+            return None
 
 
     def process_mentor_form(self, form, data, success_fn, fail_fn):
@@ -51,5 +46,8 @@ class Controller(object):
             return fail_fn()
 
     def activate_mentor(self, token):
-        self.faculty.activate_mentor(token, Config().config['secret_key'])
+        self.faculty_repository.get_faculty().activate_mentor(token)
 
+    @property
+    def faculty(self):
+        return self.faculty_repository.get_faculty()

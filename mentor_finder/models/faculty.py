@@ -3,8 +3,11 @@ import itsdangerous
 
 
 class Faculty(object):
-    def __init__(self):
-        self.mentors = []
+    def __init__(self, mentors=None):
+        if not mentors:
+            self.mentors = []
+        else:
+            self.mentors = mentors
 
     def __iter__(self):
         return self.mentors.__iter__()

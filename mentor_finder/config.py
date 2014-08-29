@@ -9,6 +9,7 @@ class Config(object):
         self.config['secret_key'] = self._get_secret_key()
         self.config['mail'] = self._get_mail_config()
         self.config['mail']['port'] = int(self.config['mail']['port'])
+        self.config['db_uri'] = self._get_db_uri()
 
     def _get_mail_config(self):
         prefix = 'MAIL_'
@@ -35,3 +36,7 @@ class Config(object):
 
     def _get_url(self):
         return os.getenv('APP_URL', 'http://localhost')
+
+    def _get_db_uri(self):
+        return os.getenv('APP_DB_URI',
+                         'mongodb://localhost:27017/mentor_finder')

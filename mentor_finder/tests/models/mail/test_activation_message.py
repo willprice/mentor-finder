@@ -8,7 +8,7 @@ from mentor_finder.config import Config
 
 class TestActivationMessage(unittest.TestCase):
     @patch('mentor_finder.models.mail.message.Config')
-    def test_activation_message_contains_verifcation_url(self, mock_Config):
+    def test_activation_message_contains_verification_url(self, mock_Config):
        mentor = create_example_mentor()
        config = Config()
        mock_Config.return_value = config

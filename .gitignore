@@ -4,7 +4,9 @@
 .idea
 .ropeproject
 __pycache__
+build
 mentor_finder/sensitive
 .coverage
 secret_env_vars
+*.deb
 **.log

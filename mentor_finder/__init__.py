@@ -12,7 +12,9 @@ from mentor_finder.models.mail.mailers import StubMailer, Mailer
 class MentorFinder(object):
     def __init__(self, test=False):
         self.config = Config().config
-        self.app = Flask(__name__)
+        self.app = Flask(__name__,
+                         static_folder='static/dist',
+                         static_url_path='/static')
         self.app.secret_key = self.config['secret_key']
 
         if test:
@@ -23,9 +25,7 @@ class MentorFinder(object):
             csrf = CsrfProtect()
             csrf.init_app(self.app)
 
-        self.controller = Controller(self.app,
-                                     mailer=mailer_cls()
-        )
+        self.controller = Controller(mailer=mailer_cls())
         self.views = self.setup_views()
 
     def setup_views(self):
