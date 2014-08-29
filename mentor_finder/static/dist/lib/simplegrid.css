@@ -1,0 +1,12 @@
+/***********************************************************
+ * SimpleGrid
+ *********************************************************** */
+/* Setup the simplegrid
+ *
+ * @param px $_padding - a pixel value of the padding between grid items
+ */
+/* Add a break point to the columns
+ *
+ * @param int $_colNum - the column number that the breakpoint will affect
+ * @param px $_breakpoint - a pixel value of the breakpiont for max-width (ex: "960px") 
+ */

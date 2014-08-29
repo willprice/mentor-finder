@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Mentor Signup{% endblock %}
 {% block head %}
-    <script src="static/js/mentor_finder/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="static/js/mentor_finder/bower_components/modernizr/modernizr.js"></script>
-    <script src="static/js/polyfills/js-webshim/minified/polyfiller.js"></script>
+    <script src="/static/dist/lib/jquery.min.js"></script>
+    <script src="/static/dist/lib/placeholder_polyfill.jquery.min.combo.js"></script>
     <script>
-    webshim.polyfill();
+        Modernizr.load({
+            test: Modernizr.input.placeholder,
+            nope: [
+                'placeholder_polyfill.min.css',
+                'placeholder_polyfill.jquery.min.combo.js'
+            ]
+        });
     </script>
 {% endblock %}
 {% block content %}
