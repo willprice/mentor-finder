@@ -16,8 +16,8 @@ class TestMentorListings(TemplateTestCase):
     template = env.get_template('mentor_listings.html')
 
     @parameterized.expand([
-        (1, [None]),
-        (2, [None, None])
+        (1, [utilities.create_example_mentor()]),
+        (2, [utilities.create_example_mentor(), utilities.create_example_mentor()])
     ])
     def test_there_are_the_same_number_of_mentor_divs_as_mentors(self, expected_number_of_mentor_divs, mentors):
         mentor_divs = self.render_template_and_return_mentor_divs(mentors)
@@ -115,6 +115,11 @@ class TestMentorListings(TemplateTestCase):
         another_mentor = utilities.create_example_mentor(email="jo@jo.com")
         another_mentor_div = self.render_template_and_return_mentor_divs([example_mentor, another_mentor], current=example_mentor)[1]
         self.assertNotIn("highlight", another_mentor_div.attrib['class'])
+
+    def test_only_activated_mentors_are_shown(self):
+        example_mentor = utilities.create_example_mentor(not_activated=True)
+        mentor_divs = self.render_template_and_return_mentor_divs([example_mentor])
+        self.assertEqual(0, len(mentor_divs))
 
 
     def render_template_and_return_mentor_divs(self, mentors, **kwargs):

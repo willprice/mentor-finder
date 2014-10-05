@@ -19,6 +19,7 @@ class MentorFinder(object):
 
         if test:
             self.app.config['TESTING'] = True
+            self.app.debug = True
             mailer_cls = StubMailer
         else:
             mailer_cls = Mailer

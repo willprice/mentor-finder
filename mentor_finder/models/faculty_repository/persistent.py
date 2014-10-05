@@ -24,4 +24,5 @@ class PersistentFacultyRepository(AbstractFacultyRespository):
         return self._faculty
 
     def insert_mentor(self, mentor):
+        self._faculty.add(mentor)
         return self.db.insert_mentor(mentor)

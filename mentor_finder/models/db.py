@@ -2,6 +2,7 @@
 from pymongo import MongoClient
 
 from mentor_finder.models.converters import MentorDictionaryConverter
+from mentor_finder.models.faculty import Faculty
 
 
 class MongoDB(object):
@@ -21,8 +22,7 @@ class MongoDB(object):
         return self.mentors_collection.insert(mentor_data)
 
     def update(self, mentor):
-        stored_mentor_data = self.mentors_collection.find_one({'email':
-                                                                   mentor.email})
+        stored_mentor_data = self.mentors_collection.find_one({'email': mentor.email})
         self.mentors_collection.update(
             {'_id': stored_mentor_data['_id']},
             {'$set': {
@@ -30,5 +30,8 @@ class MongoDB(object):
             }})
 
     def get_mentors(self):
-        return map(MentorDictionaryConverter.dictionary_to_mentor, self
-                   .mentors_collection.find())
+        return map(
+            MentorDictionaryConverter.dictionary_to_mentor,
+            self.mentors_collection.find()
+        )
+

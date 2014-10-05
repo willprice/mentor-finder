@@ -43,7 +43,7 @@ class TestDb(unittest.TestCase):
             personal_site="willprice.org",
             twitter_id="will_price_94",
             linkedin="uk.linkedin.com/in/willprice",
-            activated=False,
+            activated=True,
         )
         mentor = self.create_mentor(mentor_data)
 

@@ -80,7 +80,7 @@ fieldset {
 #register-mentor {
   width: 30%;
   margin: 0 auto; }
-  #register-mentor label, #register-mentor legend {
+  #register-mentor label, #register-mentor legend,  #register-mentor fieldset {
     width: 100%;
     display: block;
     float: left;

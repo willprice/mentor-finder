@@ -1,17 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Mentor Signup{% endblock %}
 {% block head %}
-    <script src="/static/dist/lib/jquery.min.js"></script>
-    <script src="/static/dist/lib/placeholder_polyfill.jquery.min.combo.js"></script>
-    <script>
-        Modernizr.load({
-            test: Modernizr.input.placeholder,
-            nope: [
-                'placeholder_polyfill.min.css',
-                'placeholder_polyfill.jquery.min.combo.js'
-            ]
-        });
-    </script>
 {% endblock %}
 {% block content %}
     <h1>Mentor signup</h1>

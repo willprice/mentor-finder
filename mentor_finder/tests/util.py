@@ -28,10 +28,12 @@ def create_minimal_example_mentor(**kwargs):
 def create_example_mentor(**kwargs):
     mentor = MentorFieldParser(dict(_jasons_details, **kwargs)).get_mentor()
     try:
-        if kwargs['activated']:
+        if kwargs['not_activated']:
+            pass
+        else:
             mentor.activate()
     except KeyError:
-        pass
+            mentor.activate()
     return mentor
 
 

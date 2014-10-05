@@ -112,7 +112,7 @@ class TestMentorModel(unittest.TestCase):
         self.assertTrue("keywords aren't optional")
 
     def test_account_is_initially_deactivated(self):
-        mentor = utilities.create_example_mentor()
+        mentor = utilities.create_example_mentor(not_activated=True)
         self.assertFalse(mentor.activated)
 
     def test_stores_date_at_signup(self):

@@ -46,7 +46,8 @@ class Controller(object):
             return fail_fn()
 
     def activate_mentor(self, token):
-        self.faculty_repository.get_faculty().activate_mentor(token)
+        self.faculty_repository.get_faculty().activate_mentor(token,
+                                                              Config().config['secret_key'])
 
     @property
     def faculty(self):
