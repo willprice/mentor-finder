@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pymongo import MongoClient
+from bson.binary import Binary
 
 from mentor_finder.models.converters import MentorDictionaryConverter
 from mentor_finder.models.faculty import Faculty
@@ -19,6 +20,7 @@ class MongoDB(object):
 
     def save_mentor(self, mentor):
         mentor_data = self.converter.mentor_to_dictionary(mentor)
+        mentor_data['password'] = Binary(mentor_data['password'])
         return self.mentors_collection.insert(mentor_data)
 
     def update(self, mentor):

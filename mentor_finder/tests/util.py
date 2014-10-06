@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from mentor_finder.hash import Hash
 from mentor_finder.models.mentor_parser import MentorFieldParser
 from mentor_finder.models.converters import MentorDictionaryConverter
 
 _basic_mentor_details = dict(
     first_name="Jason",
     last_name="Gorman",
-    password="DEFAULT_PASSWORD",
+    password=Hash().hash("DEFAULT_PASSWORD"),
     email="jasongorman@codemanship.com",
     county="Greater London",
     description="I am a London based software developer and trainer with 22 years of commercial experience",

@@ -88,9 +88,9 @@ fieldset {
   #register-mentor input, #register-mentor select, #register-mentor textarea {
     display: block;
     width: 100%;
-    float: right;
+    float: left;
     border-radius: 5px; }
-    #register-mentor input[name="twitter_id"], #register-mentor select[name="twitter_id"], #register-mentor textarea[name="twitter_id"] {
+    #register-mentor input[name="twitter_id"] {
       width: calc(100% - 1.5em); }
   #register-mentor .optional {
     margin-top: 60px; }

@@ -23,7 +23,7 @@ class TestDb(unittest.TestCase):
 
     def setUp(self):
         self.db.drop_collection('mentors')
-        self.db['mentors'].insert(EXAMPLE_MENTOR_DB_DATA)
+        self.db_wrapper.save_mentor(create_example_mentor())
 
     def test_fetch_mentor(self):
         mentor = self.db_wrapper.get_mentor(self.example_mentor.email)
@@ -34,6 +34,7 @@ class TestDb(unittest.TestCase):
         mentor_data = dict(
             first_name="Will",
             last_name="Price",
+            password="test_password",
             email="will.price94@gmail.com",
             county="Hereford",
             description="I am a Hereford based software developer and trainer with "
@@ -45,7 +46,7 @@ class TestDb(unittest.TestCase):
             linkedin="uk.linkedin.com/in/willprice",
             activated=True,
         )
-        mentor = self.create_mentor(mentor_data)
+        mentor = MentorDictionaryConverter.dictionary_to_mentor(mentor_data)
 
         self.db_wrapper.save_mentor(mentor)
 
@@ -91,4 +92,3 @@ class TestDb(unittest.TestCase):
             expected_mentor
         )
         self.assertEqual(expected_mentor_data, actual_mentor_data)
-
