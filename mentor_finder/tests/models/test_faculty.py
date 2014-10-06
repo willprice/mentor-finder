@@ -20,10 +20,5 @@ class TestFaculty(unittest.TestCase):
         self.faculty.add(another_mentor)
 
     def test_activate_mentor(self):
-        key = "secret_key"
-
-        serializer = itsdangerous.URLSafeSerializer(key)
-        token = serializer.dumps(self.mentor.email)
-        self.faculty.activate_mentor(token, key)
-
+        self.faculty.activate_mentor(self.mentor.email)
         self.assertTrue(self.mentor.activated)

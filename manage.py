@@ -24,12 +24,12 @@ def test():
 def unittest():
    subprocess.call(["nosetests"] +
                    NOSE_ARGS +
-                   ['--exclude-dir=mentor_finder/tests/webdriver_tests'])
+                   ['--exclude-dir=mentor_finder/tests/webdriver'])
 
 @manager.command
 def functionaltest():
    subprocess.call(["nosetests"] + NOSE_ARGS +
-   ['mentor_finder/tests/webdriver_tests'])
+   ['mentor_finder/tests/webdriver'])
 
 
 if __name__ == "__main__":

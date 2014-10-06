@@ -33,11 +33,10 @@ class Faculty(object):
                 return mentor
         return None
 
-    def activate_mentor(self, token, key):
-        serializer = itsdangerous.URLSafeSerializer(key)
-        email = serializer.loads(token)
+    def activate_mentor(self, email):
         mentor = self.get_mentor(email)
         mentor.activate()
+        return mentor
 
     def exists(self, mentor):
         return mentor in self.mentors

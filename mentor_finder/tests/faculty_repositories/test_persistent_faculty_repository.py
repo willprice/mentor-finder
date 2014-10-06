@@ -17,10 +17,16 @@ class TestPersistentFacultyRepository(unittest.TestCase):
 
         self.repository.insert_mentor(mentor)
 
-        self.db.insert_mentor.assert_called_once_with(mentor)
+        self.db.save_mentor.assert_called_once_with(mentor)
 
     @patch('mentor_finder.models.faculty_repository.persistent.Faculty')
     def test_loading_mentor_from_db(self, Faculty):
         mentors = self.db.get_mentors()
         self.repository._load_faculty()
         Faculty.assert_called_once_with(mentors=mentors)
+
+    @unittest.skip("Not written")
+    @patch('mentor_finder.models.faculty.itsdangerous')
+    def test_activating_mentor_persists_to_db(self, itsdangerous):
+        self.repository._faculty = MagicMock()
+        self.repository.activate_mentor("encrypted_email_address", "secret_key")

@@ -23,6 +23,13 @@ class PersistentFacultyRepository(AbstractFacultyRespository):
     def get_faculty(self):
         return self._faculty
 
+    def _save_mentor_into_db(self, mentor):
+        return self.db.save_mentor(mentor)
+
     def insert_mentor(self, mentor):
         self._faculty.add(mentor)
-        return self.db.insert_mentor(mentor)
+        return self._save_mentor_into_db(mentor)
+
+    def activate_mentor(self, email):
+        mentor = self._faculty.activate_mentor(email)
+        return self._save_mentor_into_db(mentor)

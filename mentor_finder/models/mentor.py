@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 class Mentor(object):
-    def __init__(self, name, county, description, date_of_birth, email,
+    def __init__(self, name, password, county, description, date_of_birth,
+                 email,
                  personal_site=None, twitter_id=None, keywords=None,
                  linkedin=None, github_id=None, signup_date=None):
         self.signup_date = signup_date
         self.activated = False
         self.name = name
+        self.password = password
         self.county = county
         self.description = description
         self.date_of_birth = date_of_birth

@@ -47,14 +47,14 @@ class TestDb(unittest.TestCase):
         )
         mentor = self.create_mentor(mentor_data)
 
-        self.db_wrapper.insert_mentor(mentor)
+        self.db_wrapper.save_mentor(mentor)
 
         fetched_mentor = self.db_wrapper.get_mentor(mentor.email)
         expected_mentor = MentorDictionaryConverter.dictionary_to_mentor(mentor_data)
         self.mentor_deep_equal(expected_mentor, fetched_mentor)
 
     def test_update_mentor(self):
-        self.db_wrapper.insert_mentor(self.example_mentor)
+        self.db_wrapper.save_mentor(self.example_mentor)
         updated_mentor_data = MentorDictionaryConverter.mentor_to_dictionary(self.example_mentor)
         updated_mentor_data.update(
             activated=True

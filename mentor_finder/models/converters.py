@@ -12,6 +12,7 @@ class MentorDictionaryConverter(object):
     def dictionary_to_mentor(mentor_data):
         mentor = Mentor(name=Name(mentor_data['first_name'],
                                 mentor_data['last_name']),
+                        password="DEFAULT_PASSWORD",
                       email=mentor_data['email'],
                       county=mentor_data['county'],
                       description=mentor_data['description'],

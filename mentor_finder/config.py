@@ -6,6 +6,7 @@ class Config(object):
     def __init__(self):
         self.config = dict()
         self.config['url'] = self._get_url()
+        self.config['salt'] = "DEFAULT_SALT"
         self.config['secret_key'] = self._get_secret_key()
         self.config['mail'] = self._get_mail_config()
         self.config['mail']['port'] = int(self.config['mail']['port'])

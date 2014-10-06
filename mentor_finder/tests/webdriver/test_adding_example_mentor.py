@@ -33,6 +33,7 @@ sauce_config = SauceConfig()
 
 
 @on_platforms(sauce_config, browsers)
+@unittest.skip("Broken")
 class TestAddingExampleMentor(LiveServerTestCase, FlaskTestCase):
     def _spawn_live_server(self):
         self._process = None

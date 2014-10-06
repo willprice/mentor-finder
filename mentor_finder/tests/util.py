@@ -6,6 +6,7 @@ from mentor_finder.models.converters import MentorDictionaryConverter
 _basic_mentor_details = dict(
     first_name="Jason",
     last_name="Gorman",
+    password="DEFAULT_PASSWORD",
     email="jasongorman@codemanship.com",
     county="Greater London",
     description="I am a London based software developer and trainer with 22 years of commercial experience",
@@ -37,14 +38,14 @@ def create_example_mentor(**kwargs):
     return mentor
 
 
-EXAMPLE_MENTOR_DB_DATA = MentorDictionaryConverter() \
-    .mentor_to_dictionary(create_example_mentor())
+EXAMPLE_MENTOR_DB_DATA = MentorDictionaryConverter().mentor_to_dictionary(create_example_mentor())
 
-EXAMPLE_MENTOR_FORM_DATA = dict(
-    password="apprentice",
-    password_confirmation="apprentice",
-    **_jasons_details
-)
+EXAMPLE_MENTOR_FORM_DATA = _jasons_details
+
+def create_example_mentor_form_data(**kwargs):
+    mentor_form_data = EXAMPLE_MENTOR_FORM_DATA.copy()
+    mentor_form_data.update(kwargs)
+    return mentor_form_data
 
 
 class FakeDatetime(datetime):

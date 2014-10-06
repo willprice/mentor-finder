@@ -72,7 +72,6 @@ class TestMentorModel(unittest.TestCase):
         jason = utilities.create_example_mentor(personal_site=site)
         self.assertEqual(site, jason.personal_site)
 
-
     @parameterized.expand([
         ["jasongorman"],
         ["will_price_94"]

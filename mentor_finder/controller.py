@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from mentor_finder.config import Config
+from mentor_finder.email_deserializer import EmailDeserializer
 from mentor_finder.models.faculty_repository import PersistentFacultyRepository
 from mentor_finder.models.mentor_parser import MentorFieldParser
 from mentor_finder.models.mail.mailers import Mailer
@@ -25,15 +26,14 @@ class Controller(object):
         self.mailer = mailer
         self.error_reporter = error_reporter
 
+
     def add_mentor(self, mentor_dict):
         mentor = MentorFieldParser(mentor_dict).get_mentor()
         if self.faculty_repository.insert_mentor(mentor):
-            message = ActivationMessage(mentor, Config().config['secret_key'])
-            self.mailer.send(message)
+            self.mailer.send_activation_message_to_mentor(mentor)
             return mentor
         else:
             return None
-
 
     def process_mentor_form(self, form, data, success_fn, fail_fn):
         if form.validate_on_submit():
@@ -46,8 +46,10 @@ class Controller(object):
             return fail_fn()
 
     def activate_mentor(self, token):
-        self.faculty_repository.get_faculty().activate_mentor(token,
-                                                              Config().config['secret_key'])
+        deserializer = EmailDeserializer()
+        email = deserializer.deserialize_token_to_email(Config().config['secret_key'],
+                                                        token)
+        self.faculty_repository.activate_mentor(email)
 
     @property
     def faculty(self):

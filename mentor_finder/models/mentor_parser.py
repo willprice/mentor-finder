@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 import dateutil.parser
+import hashlib
 
+from mentor_finder.hash import Hash
 from mentor_finder.models.mentor import Mentor
 from mentor_finder.models.name import Name
+from mentor_finder.config import Config
 
 
 class MentorFieldParser(object):
     def __init__(self, fields):
         self.fields = fields
         self.optional_fields = dict()
-        county, date_of_birth, description, email, name = self.parse_mandatory_fields()
+        county, date_of_birth, description, email, password, name = self.parse_mandatory_fields()
         self.parse_optional_fields()
-        self.mentor = Mentor(name, county, description, date_of_birth,
+        hashed_password = Hash().hash(password)
+        self.mentor = Mentor(name, hashed_password, county, description,
+                             date_of_birth,
                              email,
                              signup_date=datetime.now(),
                              **self.optional_fields)
@@ -27,7 +32,8 @@ class MentorFieldParser(object):
         date_of_birth = self.parse_date_of_birth(self.fields)
         description = self.fields['description']
         email = self.fields['email']
-        return county, date_of_birth, description, email, name
+        password = self.fields['password']
+        return county, date_of_birth, description, email, password, name
 
     def parse_date_of_birth(self, fields):
         try:

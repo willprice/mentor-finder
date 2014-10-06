@@ -2,6 +2,7 @@
 from marrow.mailer import Mailer as MarrowMailer
 import time
 from mentor_finder.config import Config
+from mentor_finder.models.mail.message import ActivationMessage
 
 
 class Mailer(object):
@@ -20,6 +21,10 @@ class Mailer(object):
         self.mailer.send(message)
         self.mailer.stop()
         pass
+
+    def send_activation_message_to_mentor(self, mentor):
+        message = ActivationMessage(mentor, Config().config['secret_key'])
+        self.send(message)
 
 class StubMailer(object):
     def __init__(self):

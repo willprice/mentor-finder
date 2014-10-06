@@ -17,7 +17,7 @@ class MongoDB(object):
             return self.converter.dictionary_to_mentor(mentor_data)
         return None
 
-    def insert_mentor(self, mentor):
+    def save_mentor(self, mentor):
         mentor_data = self.converter.mentor_to_dictionary(mentor)
         return self.mentors_collection.insert(mentor_data)
 
