@@ -8,9 +8,10 @@ from mentor_finder.tests.util import create_example_mentor_form_data
 
 class TestMentorFieldParser(unittest.TestCase):
     def test_hashing_password(self):
-        password = "apprentice"
+        password = "test_password"
         parser = MentorFieldParser(create_example_mentor_form_data(
-            password=password))
+            password=password)
+        )
         mentor = parser.get_mentor()
         hashed_password = Hash().hash(password)
         self.assertEqual(hashed_password, mentor.password)

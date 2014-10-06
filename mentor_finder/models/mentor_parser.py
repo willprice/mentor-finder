@@ -6,7 +6,6 @@ import hashlib
 from mentor_finder.hash import Hash
 from mentor_finder.models.mentor import Mentor
 from mentor_finder.models.name import Name
-from mentor_finder.config import Config
 
 
 class MentorFieldParser(object):
