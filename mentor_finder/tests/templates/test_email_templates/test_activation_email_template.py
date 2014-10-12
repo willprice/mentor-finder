@@ -24,10 +24,3 @@ class TestActivationEmail(TemplateTestCase):
             user=self.user,
             activation_url=example_url),
         )
-
-    def test_contains_length_of_life_of_token(self):
-        length_of_life = str(7)
-        self.assertIn(length_of_life, self.template.render(
-            user=self.user,
-            length_of_token_life_days=length_of_life),
-        )
