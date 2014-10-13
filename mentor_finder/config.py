@@ -40,4 +40,4 @@ class Config(object):
 
     def _get_db_uri(self):
         return os.getenv('APP_DB_URI',
-                         'mongodb://localhost:27017/mentor_finder')
+                         'mongodb://localhost:27017/')

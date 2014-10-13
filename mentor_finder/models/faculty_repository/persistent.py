@@ -32,4 +32,4 @@ class PersistentFacultyRepository(AbstractFacultyRespository):
 
     def activate_mentor(self, email):
         mentor = self._faculty.activate_mentor(email)
-        return self._save_mentor_into_db(mentor)
+        return self.db.update(mentor)
