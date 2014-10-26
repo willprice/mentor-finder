@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-import flask_testcase
-from mentor_finder.models.name import Name
-import datetime
+from mentor_finder.tests.testcases import flask_testcase
 
 
 class AcceptanceTest(flask_testcase.FlaskTestCase):

@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from mock import Mock, patch
-import unittest
+from mock import Mock
 
-from mentor_finder.tests.flask_testcase import FlaskTestCase
+from mentor_finder.tests.testcases.flask_testcase import FlaskTestCase
 
 
 class TestMentorFinder(FlaskTestCase):

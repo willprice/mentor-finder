@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import lxml.html
 from flask import render_template
-from mentor_finder.util import flash_errors
 
+from mentor_finder.util import flash_errors
 from mentor_finder.views.forms.mentor_signup import mentor_signup_form_factory
 from mentor_finder.models.faculty import Faculty
-from mentor_finder.tests.template_testcase import TemplateTestCase
-from mentor_finder.tests.flask_testcase import FlaskTestCase
+from mentor_finder.tests.testcases.template_testcase import TemplateTestCase
+from mentor_finder.tests.testcases.flask_testcase import FlaskTestCase
 
 
 MentorSignupForm = mentor_signup_form_factory(Faculty())

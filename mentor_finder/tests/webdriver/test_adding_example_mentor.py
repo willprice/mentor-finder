@@ -4,12 +4,11 @@ import multiprocessing
 import time
 import os
 
-
 from flask.ext.testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 
-from mentor_finder.tests.flask_testcase import FlaskTestCase
+from mentor_finder.tests.testcases.flask_testcase import FlaskTestCase
 from mentor_finder.tests.sauce_config import SauceConfig, on_platforms
 
 

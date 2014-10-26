@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from jinja2 import Environment, FileSystemLoader
 
-from mentor_finder.tests.template_testcase import TemplateTestCase
+from mentor_finder.tests.testcases.template_testcase import TemplateTestCase
 from mentor_finder.tests.util import create_example_mentor
 
 
