@@ -105,16 +105,16 @@ class TestMentorListings(TemplateTestCase):
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor])[0]
         self.assertIn("http://github.com/{}".format(github_id), self.flatten_text(mentor_div))
 
-    def test_current_mentor_is_highlighted(self):
+    def test_current_mentor_is_inactive_before_confirmation(self):
         example_mentor = utilities.create_example_mentor()
         mentor_div = self.render_template_and_return_mentor_divs([example_mentor], current=example_mentor)[0]
-        self.assertIn("highlight", mentor_div.attrib['class'])
+        self.assertIn("inactive", mentor_div.attrib['class'])
 
-    def test_only_the_current_mentor_is_highlighted(self):
+    def test_only_the_current_mentor_is_present(self):
         example_mentor = utilities.create_example_mentor()
         another_mentor = utilities.create_example_mentor(email="jo@jo.com")
         another_mentor_div = self.render_template_and_return_mentor_divs([example_mentor, another_mentor], current=example_mentor)[1]
-        self.assertNotIn("highlight", another_mentor_div.attrib['class'])
+        self.assertNotIn("inactive", another_mentor_div.attrib['class'])
 
     def test_only_activated_mentors_are_shown(self):
         example_mentor = utilities.create_example_mentor(not_activated=True)

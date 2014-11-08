@@ -37,13 +37,9 @@ class Controller(object):
 
     def process_mentor_form(self, form, data, success_fn, fail_fn):
         if form.validate_on_submit():
-                mentor = self.add_mentor(data)
-                if mentor:
-                    return success_fn(mentor)
-                return fail_fn()
-        else:
-            self.error_reporter(form)
-            return fail_fn()
+            return self.add_mentor(data)
+        self.error_reporter(form)
+        return None
 
     def activate_mentor(self, token):
         deserializer = EmailDeserializer()

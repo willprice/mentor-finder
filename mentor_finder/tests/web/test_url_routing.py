@@ -24,3 +24,6 @@ class TestMentorFinder(FlaskTestCase):
         url = '/users/activate/' + token
         self.client.get(url)
         self.finder.controller.activate_mentor.assert_called_once_with(token)
+
+#    def test_current_mentor_is_highlighted_on_listings_page(self):
+#        self.finder.app

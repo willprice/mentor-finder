@@ -95,8 +95,8 @@ fieldset {
     width: 5em;
     margin: 0 auto; }
 
-.highlight {
-  background: #eeeeee; }
+.inactive {
+  opacity: 0.3; }
 
 .mentor {
   width: 720px;

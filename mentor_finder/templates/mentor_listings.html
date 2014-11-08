@@ -6,7 +6,7 @@
         {% if mentor.activated or current == mentor %}
             {% set classes = "mentor" %}
             {% if current == mentor %}
-                {% set classes = classes + " highlight" %}
+                {% set classes = classes + " inactive" %}
             {% endif %}
             <div class="{{ classes }}">
                 <p><span class="name">{{ mentor.name }}</span>, <span class="county">{{ mentor.county }}</span></p>

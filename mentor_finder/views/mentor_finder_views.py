@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, session
 from mentor_finder.views import mentor_signup_form_factory
 
 
@@ -36,17 +36,28 @@ class MentorFinderViews(Blueprint):
         form = MentorSignupForm()
 
         if request.method == 'POST':
-            return self.controller \
+            mentor = self.controller \
                 .process_mentor_form(form, request.form,
                                      lambda mentor: self.mentor_listings(
                                          current=mentor
                                      ),
                                      lambda: _mentor_signup(form))
+            if mentor:
+                session['username'] = mentor.email
+                return self.mentor_listings()
+            return _mentor_signup(form)
+
         else:
             return _mentor_signup(form)
 
 
     def mentor_listings(self, current=None):
+        try:
+            current = current or self.controller.faculty.get_mentor(
+                session['username']
+            )
+        except KeyError:
+            pass
         return render_template('mentor_listings.html',
                                mentors=self.controller.faculty,
                                current=current)
