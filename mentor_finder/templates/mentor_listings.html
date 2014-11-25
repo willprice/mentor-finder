@@ -5,7 +5,7 @@
     {% for mentor in mentors %}
         {% if mentor.activated or current == mentor %}
             {% set classes = "mentor" %}
-            {% if current == mentor %}
+            {% if current == mentor and not mentor.activated %}
                 {% set classes = classes + " inactive" %}
             {% endif %}
             <div class="{{ classes }}">
