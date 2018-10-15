@@ -5,7 +5,7 @@
 [![Stories in Ready](https://badge.waffle.io/willprice/mentor-finder.png?label=ready&title=Ready)](http://waffle.io/willprice/mentor-finder)
 [![Travis build status](https://travis-ci.org/willprice/mentor-finder.svg?branch=master)](https://travis-ci.org/willprice/mentor-finder)
 [![Coverage Status](https://img.shields.io/coveralls/willprice/mentor-finder.svg)](https://coveralls.io/r/willprice/mentor-finder?branch=master)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/willprice94)](https://saucelabs.com/u/willprice94)
+[![Sauce Test Status](https://saucelabs.com/buildstatus/willprice94)](https://saucelabs.com/u/willprice94) [![Greenkeeper badge](https://badges.greenkeeper.io/willprice/mentor-finder.svg)](https://greenkeeper.io/)
 
 A web application designed to connect prospective students to mentors. Mentors post their details for students, students
 browse mentors to find one whose interests match theirs and contact them.
