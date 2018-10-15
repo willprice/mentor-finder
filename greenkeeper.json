@@ -1,0 +1,9 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "mentor_finder/static/package.json"
+      ]
+    }
+  }
+}
